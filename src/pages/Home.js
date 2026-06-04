@@ -1,0 +1,251 @@
+import { useEffect, useState } from "react";
+import { useCajeros } from "../hooks/useCajeros";
+import { useBoxes } from "../hooks/useBoxes";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import LinkCustom from "../components/Link";
+
+export default function Home() {
+
+    /*********** CAJEROS **********/
+    const { cajeros, loadingCajeros, errorCajeros, fetchCajeros } = useCajeros();
+
+    /*********** BOXES **********/
+    const { boxes, loadingBoxes, errorBoxes, fetchBoxes } = useBoxes();
+
+    const [cajeroAct, setCajeroAct] = useState(localStorage.getItem("id"));
+    const [cajeroSeleccionado, setCajeroSeleccionado] = useState("");
+    const [boxSeleccionado, setBoxSeleccionado] = useState("");
+    const [userRol, setUserRol] = useState(localStorage.getItem("id_tipo_usuario"));
+
+    const cajeroActual = cajeros.find(c => c.id === cajeroSeleccionado);
+    const boxActual = boxes.find(b => b.id === boxSeleccionado);
+
+    useEffect(() => {
+        localStorage.setItem("box_actual", boxSeleccionado);
+    }, [boxSeleccionado]);
+
+    useEffect(() => {
+        fetchCajeros();
+        fetchBoxes();
+
+        const interval = setInterval(() => {
+            fetchBoxes();
+        }, 5000); // cada 5 segundos
+
+        return () => clearInterval(interval);
+    }, []);
+
+
+    const handleSeleccion = async (value) => {
+        //aqui actualizo el estado a la DB
+        setBoxSeleccionado(value);
+    };
+
+    const handleSubmit = async (e) => {
+
+        if (!boxSeleccionado) return
+
+        e.preventDefault();
+
+        try {
+
+            const res = axios.put(`http://localhost:5000/api/boxes/${boxSeleccionado}/estado`, {
+                activo: "1",
+                cajero_actual: cajeroAct
+            });
+
+            setConfirm(true);
+
+        } catch (error) {
+            console.error("Error al enviar datos:", error);
+        }
+    };
+
+    const [confirm, setConfirm] = useState(false);
+
+    const handleLinkClick = () => {
+
+        //Borrar el estado en BOX a INACTIVO
+        if (boxSeleccionado !== '') {
+            axios.put(`http://localhost:5000/api/boxes/${boxSeleccionado}/estado`, {
+                activo: "0",
+                cajero_actual: 0
+            });
+        }
+
+        localStorage.clear();
+    };
+
+    const [selected, setSelected] = useState(1);
+
+    const styleSelected = {
+        marginTop: '10px',
+        fontFamily: "Inter",
+        backgroundColor: 'rgb(222, 59, 33)',
+        color: "white",
+        borderRadius: '5px',
+        border: 'solid',
+        borderColor: 'rgb(222, 59, 33)',
+        paddingBottom: '12px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+        paddingTop: '12px',
+        textDecoration: 'none'
+    };
+
+    const style = {
+        marginTop: '10px',
+        fontFamily: "Inter",
+        color: 'rgb(60, 60, 60)',
+        display: "inline-block",
+        border: "1px solid rgb(222, 59, 33)",
+        borderRadius: '5px',
+        marginBottom: '10px',
+        paddingBottom: '12px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+        paddingTop: '12px',
+        textDecoration: 'none'
+    };
+
+
+    const handleClick = () => {
+        if (selected === 1 && boxSeleccionado !== "") {
+            setSelected(0);
+        } else {
+            setSelected(1);
+        }
+    };
+
+    return (
+        <>
+            <div className="container mt-5">
+                <div className="row justify-content-center">
+
+                    <div className="col-md-6">
+
+                        <div style={{ fontFamily: "Inter" }} className="card shadow">
+                            <div className="card-header text-center" style={{ color: 'black', backgroundColor: 'rgb(247, 224, 23)' }}>
+                                <h5 className="mb-0 " style={{ fontSize: "14px" }}>Asignación de Atención</h5>
+                            </div>
+
+                            <div className="card-body">
+
+                                {/* BOXES */}
+                                <div className="mb-3">
+                                    <label className="form-label">Box</label>
+                                    <select
+                                        style={{
+                                            borderColor: 'rgb(231, 231, 233)',
+                                            maxWidth: "100%",
+                                            fontSize: '16px',
+                                            fontStyle: 'normal',
+                                            fontWeight: '600px'
+                                        }}
+                                        className="form-select"
+                                        value={boxSeleccionado}
+                                        onChange={(e) => handleSeleccion(e.target.value)}
+                                    >
+                                        <option value="">Seleccionar box</option>
+                                        {boxes.map((b) => (
+                                            <option
+                                                key={b.id}
+                                                value={b.id}
+                                                disabled={b.activo === 1}
+                                            >
+                                                Box {b.numero}
+                                                {b.activo === 1 ? "🟢 Activo" : "🔴 Inactivo"}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {/* RESUMEN */}
+                                <div className="alert alert-info">
+                                    <h6>Selección actual:</h6>
+
+                                    <p className="mb-0">
+                                        <strong>Box:</strong>{" "}
+                                        {boxActual
+                                            ? `Box ${boxSeleccionado} - ${boxActual.descripcion} ${boxActual.activo === 1 ? "🟢" : "🔴"}`
+                                            : "No seleccionado"}
+                                    </p>
+                                </div>
+                                <form onSubmit={handleSubmit}>
+                                    <button
+                                        className="btn"
+                                        type="submit"
+                                        style={{
+                                            borderBottoLeftRadius: '8px',
+                                            borderBottomRightRadius: '8px',
+                                            borderBottomStyle: 'none',
+                                            borderBottomWidth: '0px',
+                                            maxWidth: "298px",
+                                            backgroundColor: 'rgb(247, 224, 23)',
+                                            fontSize: '16px',
+                                            fontStyle: 'normal',
+                                            fontWeight: '600px',
+                                            marginBottom: '20px'
+                                        }}
+                                    >
+                                        Confirmar eleccion
+                                    </button>
+                                </form>
+                                <Link to="/cajero"
+                                    onClick={(e) => {
+                                        handleClick()
+                                        if (!confirm) {
+                                            e.preventDefault();
+                                            alert("Debe confirmar eleccion!");
+                                        }
+                                    }}
+                                    style={selected === 0 ? styleSelected : style}
+                                >
+                                    👤 IR A ATENCION
+                                </Link>
+                                {
+                                    (userRol === "1") ?
+                                        <Link to="/admin"
+                                            style={{
+                                                textDecoration: 'none',
+                                                marginLeft: '100px',
+                                                marginTop: '10px',
+                                                fontFamily: "Inter",
+                                                color: 'rgb(60, 60, 60)',
+                                                display: "inline-block",
+                                                border: "1px solid rgb(222, 59, 33)",
+                                                borderRadius: '5px',
+                                                paddingBottom: '12px',
+                                                paddingLeft: '20px',
+                                                paddingRight: '20px',
+                                                paddingTop: '12px'
+                                            }}
+                                        >
+                                            ADMIN
+                                        </Link>
+                                        :
+                                        null
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div >
+            <div style={{ textAlign: 'center', marginTop: '50px' }}>
+                <LinkCustom
+                    onClick={handleLinkClick}
+                    route="/Login"
+                    title="Cerrar Sesión"
+                    backgroundColor="rgb(247, 224, 23)"
+                    color='black'
+                    marginTop='20px'
+                    marginRight='5px'
+                    marginBottom='10px'
+                    marginLeft='5px'
+                />
+            </div>
+        </>
+    );
+}

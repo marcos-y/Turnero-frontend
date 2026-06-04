@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import GenerarTurno from "./pages/GenerarTurno";
+import VerTurnos from "./pages/VerTurnos";
+import Cajero from "./pages/Cajero";
+import Home from './pages/Home'
+import Login from "./pages/Login";
+import AdminPanel from "./pages/Admin/AdminPanel";
+import AdminRoute from "./pages/Admin/AdminRoute";
 
-function App() {
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/generar" element={<GenerarTurno />} />
+          <Route path="/ver" element={<VerTurnos />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/cajero" element={<Cajero />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminPanel />
+              </AdminRoute>
+            }
+          />
+
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
