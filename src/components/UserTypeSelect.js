@@ -3,7 +3,7 @@ import React from "react";
 function UserTypeSelect(props) {
   return (
       <select
-        style={{fontFamily: "Inter"}}
+        style={{fontFamily: "Inter, sans-serif"}}
         id="userType"
         className="form-select shadow-sm"
         //value={value}

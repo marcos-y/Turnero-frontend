@@ -83,7 +83,7 @@ export default function CajerosTab(props) {
 
             {/* FORM */}
             <div className="card mb-3">
-                <div className="card-body" style={{ fontFamily: "Inter", fontSize: '13px' }} >
+                <div className="card-body" style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} >
 
                     <div className="row g-2">
 
@@ -177,7 +177,7 @@ export default function CajerosTab(props) {
             <div className="card">
                 <div className="card-body">
 
-                    <table style={{ fontFamily: "Inter", fontSize: '13px' }} className="table">
+                    <table style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} className="table">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -226,7 +226,7 @@ export default function CajerosTab(props) {
                                                     className={`btn btn-sm`}
                                                     style={{
                                                         backgroundColor: item.color,
-                                                        fontFamily: "Inter",
+                                                        fontFamily: "Inter, sans-serif",
                                                         color: 'white',
                                                         marginLeft: '2px',
                                                         marginRight: '2px',
@@ -268,7 +268,7 @@ export default function CajerosTab(props) {
                                             className={`btn btn-sm`}
                                             style={{
                                                 backgroundColor: c.activo === 1 ? 'rgb(222, 59, 33)' : '#25D366',
-                                                fontFamily: "Inter",
+                                                fontFamily: "Inter, sans-serif",
                                                 color: 'white'
                                             }}
                                             onClick={() => props.toggleEstadoCajero(c)}

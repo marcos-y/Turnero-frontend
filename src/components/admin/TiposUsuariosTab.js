@@ -20,7 +20,7 @@ export default function TiposUsuariosTab(props) {
             <div className="card">
                 <div className="card-body">
 
-                    <div style={{ fontFamily: "Inter", fontSize: '13px' }} className="row g-2">
+                    <div style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} className="row g-2">
                         <div className="col">
 
                             <input
@@ -76,7 +76,7 @@ export default function TiposUsuariosTab(props) {
                         <div className="col-auto">
                             <button
                                 className="btn btn-primary"
-                                style={{ fontFamily: "Inter" }}
+                                style={{ fontFamily: "Inter, sans-serif" }}
                                 onClick={()=> props.createTipoUsuario(form)}
                             >
                                 Agregar
@@ -84,7 +84,7 @@ export default function TiposUsuariosTab(props) {
                         </div>
                     </div>
 
-                    <table style={{ fontFamily: "Inter", fontSize: '13px' }} className="table">
+                    <table style={{ fontFamily: "Inter, sans-serif, sans-serif", fontSize: '13px' }} className="table">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -106,7 +106,7 @@ export default function TiposUsuariosTab(props) {
                                             className="btn btn-sm"
                                             style={{
                                                 backgroundColor: t.activo === 1 ? 'rgb(222, 59, 33)' : '#25D366',
-                                                fontFamily: "Inter",
+                                                fontFamily: "Inter, sans-serif",
                                                 color: 'white'
                                             }}
                                         onClick={() => props.updateStateTipoUsuario(t)}

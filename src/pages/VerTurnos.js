@@ -82,7 +82,7 @@ const VerTurnos = () => {
                             <div className="row text-center fw-bold border-bottom pb-3 mb-4 fs-3"
                                 style={{
                                     backgroundColor: 'rgb(247, 224, 23)',
-                                    fontFamily: "Inter",
+                                    fontFamily: "Inter, sans-serif",
                                     color: 'black',
                                     fontSize:'14px'
                                 }}>

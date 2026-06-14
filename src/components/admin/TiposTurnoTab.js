@@ -24,7 +24,7 @@ export default function TiposTurnoTab(props) {
             <div className="card mb-3">
                 <div className="card-body">
 
-                    <div style={{ fontFamily: "Inter", fontSize: '13px' }} className="row g-2">
+                    <div style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} className="row g-2">
 
                         <div className="col">
                             <input
@@ -114,7 +114,7 @@ export default function TiposTurnoTab(props) {
                         <div className="col-auto">
                             <button
                                 className="btn btn-primary"
-                                style={{ fontFamily: "Inter" }}
+                                style={{ fontFamily: "Inter, sans-serif" }}
                                 onClick={()=> props.createTipo(form)}>
                                 Agregar
                             </button>
@@ -129,7 +129,7 @@ export default function TiposTurnoTab(props) {
             <div className="card">
                 <div className="card-body">
 
-                    <table style={{ fontFamily: "Inter", fontSize: '13px' }} className="table">
+                    <table style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} className="table">
                         <thead>
                             <tr>
                                 <th>Código</th>
@@ -166,7 +166,7 @@ export default function TiposTurnoTab(props) {
                                             className="btn btn-sm"
                                             style={{
                                                 backgroundColor: t.estado === 1 ? 'rgb(222, 59, 33)' : '#25D366',
-                                                fontFamily: "Inter",
+                                                fontFamily: "Inter, sans-serif",
                                                 color: 'white'
                                             }}
                                             onClick={() => props.updateState(t)}

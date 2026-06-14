@@ -21,10 +21,10 @@ const MetricasPorDia = (props) => {
         <div className="card">
             <div className="card-body">
 
-                <h2 style={{ fontFamily: "Inter" }} >Métricas por día</h2>
+                <h2 style={{ fontFamily: "Inter, sans-serif" }} >Métricas por día</h2>
 
                 <table cellPadding="10"
-                    style={{ borderRadius: '10px', fontFamily: "Inter", fontSize: '13px', border: 'solid', borderWidth: '1px' }}>
+                    style={{ borderRadius: '10px', fontFamily: "Inter, sans-serif", fontSize: '13px', border: 'solid', borderWidth: '1px' }}>
 
                     <thead>
                         <tr>
@@ -68,10 +68,10 @@ const MetricasPorDia = (props) => {
 
                 </table>
 
-                <h2 style={{ fontFamily: "Inter", marginTop: '30px' }} >
+                <h2 style={{ fontFamily: "Inter, sans-serif", marginTop: '30px' }} >
                     Turnos del día
                 </h2>
-                <table className="table" style={{ fontFamily: "Inter", fontSize: '13px' }}>
+                <table className="table" style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }}>
                     <thead>
                         <tr>
                             <th>tipo_id</th>

@@ -37,7 +37,7 @@ const Navbar = (props) => {
 
         <span
           className="navbar-brand mb-0 text-center fw-bold"
-          style={{ fontSize: "18px", letterSpacing: "2px", fontFamily: "Inter" }}
+          style={{ fontSize: "18px", letterSpacing: "2px", fontFamily: "Inter, sans-serif" }}
         >
           {props.title}
         </span>

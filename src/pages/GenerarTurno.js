@@ -151,7 +151,7 @@ const GenerarTurno = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "2rem",
-                fontFamily: "Inter",
+                fontFamily: "Inter, sans-serif",
                 fontWeight: "bold",
                 borderRadius: "12px",
                 transition: "transform 0.2s ease"

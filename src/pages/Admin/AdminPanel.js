@@ -28,7 +28,7 @@ export default function AdminPanel() {
 
     /*Hover Selected*/
     const styleSelected0 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -39,7 +39,7 @@ export default function AdminPanel() {
     };
 
     const styleSelected = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -51,7 +51,7 @@ export default function AdminPanel() {
     };
 
     const styleSelected2 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -64,7 +64,7 @@ export default function AdminPanel() {
     };
 
     const styleSelected3 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -76,7 +76,7 @@ export default function AdminPanel() {
     };
 
     const styleSelected4 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -88,7 +88,7 @@ export default function AdminPanel() {
     };
 
     const styleSelected5 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -100,7 +100,7 @@ export default function AdminPanel() {
     };
 
     const styleSelected6 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -113,7 +113,7 @@ export default function AdminPanel() {
 
 
     const style0 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
         //color: 'rgb(175, 175, 175)',
         color: 'rgb(60, 60, 60)',
@@ -126,7 +126,7 @@ export default function AdminPanel() {
     };
 
     const style = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
         //color: 'rgb(175, 175, 175)',
         color: 'rgb(60, 60, 60)',
@@ -140,7 +140,7 @@ export default function AdminPanel() {
     };
 
     const style2 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
         color: 'rgb(60, 60, 60)',
         borderRadius: '5px',
@@ -153,7 +153,7 @@ export default function AdminPanel() {
     };
 
     const style3 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
         color: 'rgb(60, 60, 60)',
         borderRadius: '5px',
@@ -166,7 +166,7 @@ export default function AdminPanel() {
     };
 
     const style4 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
         color: 'rgb(60, 60, 60)',
         borderRadius: '5px',
@@ -179,7 +179,7 @@ export default function AdminPanel() {
     };
 
     const style5 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
         color: 'rgb(60, 60, 60)',
         borderRadius: '5px',
@@ -192,7 +192,7 @@ export default function AdminPanel() {
     };
 
     const style6 = {
-        fontFamily: "Inter",
+        fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
         color: 'rgb(60, 60, 60)',
         borderRadius: '5px',

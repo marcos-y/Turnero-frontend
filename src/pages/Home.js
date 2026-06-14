@@ -80,8 +80,8 @@ export default function Home() {
     const [selected, setSelected] = useState(1);
 
     const styleSelected = {
+        fontFamily: "Inter, sans-serif",
         marginTop: '10px',
-        fontFamily: "Inter",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
         borderRadius: '5px',
@@ -95,8 +95,8 @@ export default function Home() {
     };
 
     const style = {
+        fontFamily: "Inter, sans-serif",
         marginTop: '10px',
-        fontFamily: "Inter",
         color: 'rgb(60, 60, 60)',
         display: "inline-block",
         border: "1px solid rgb(222, 59, 33)",
@@ -121,11 +121,11 @@ export default function Home() {
     return (
         <>
             <div className="container mt-5">
-                <div className="row justify-content-center">
+                <div style={{ fontFamily: "Inter, sans-serif"}} className="row justify-content-center">
 
-                    <div className="col-md-6">
+                    <div  className="col-md-6">
 
-                        <div style={{ fontFamily: "Inter" }} className="card shadow">
+                        <div  className="card shadow">
                             <div className="card-header text-center" style={{ color: 'black', backgroundColor: 'rgb(247, 224, 23)' }}>
                                 <h5 className="mb-0 " style={{ fontSize: "14px" }}>Asignación de Atención</h5>
                             </div>
@@ -208,6 +208,7 @@ export default function Home() {
                                     (userRol === "1") ?
                                         <Link to="/admin"
                                             style={{
+                                                fontFamily: "Inter, sans-serif",
                                                 textDecoration: 'none',
                                                 marginLeft: '100px',
                                                 marginTop: '10px',

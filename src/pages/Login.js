@@ -39,7 +39,7 @@ export default function Login() {
 
             //tipos de turno
             for (let key in res.data.cajero) {
-                if(key.includes("tipo_turno") && res.data.cajero[key] != null){
+                if (key.includes("tipo_turno") && res.data.cajero[key] != null) {
                     localStorage.setItem(key, JSON.stringify(res.data.cajero[key]));
                 }
             };
@@ -89,7 +89,14 @@ export default function Login() {
                         <form onSubmit={handleLogin}>
 
                             {/* USUARIO */}
-                            <div className="mb-3">
+                            <div
+                                style={{
+                                    fontFamily: "Inter, sans-serif",
+                                    fontSize: '16px',
+                                    fontStyle: 'normal',
+                                    fontWeight: '600px'
+                                }}
+                                className="mb-3">
                                 <label
                                     style={{
                                         fontSize: '16px',
@@ -109,6 +116,7 @@ export default function Login() {
                                         e.target.style.outline = "";
                                     }}
                                     style={{
+                                        fontFamily: "Inter, sans-serif",
                                         border: "1px solid",
                                         borderColor: focus ? "rgb(247, 224, 23)" : "rgb(175, 175, 175)",
                                         padding: "8px",
@@ -124,7 +132,14 @@ export default function Login() {
                             </div>
 
                             {/* PASSWORD */}
-                            <div className="mb-3">
+                            <div
+                                style={{
+                                    fontFamily: "Inter, sans-serif",
+                                    fontSize: '16px',
+                                    fontStyle: 'normal',
+                                    fontWeight: '600px'
+                                }}
+                                className="mb-3">
                                 <label className="form-label">Contraseña</label>
                                 <input
                                     onFocus={(e) => {
@@ -162,6 +177,7 @@ export default function Login() {
                                         borderBottomWidth: '0px',
                                         maxWidth: "100%",
                                         backgroundColor: 'rgb(247, 224, 23)',
+                                        fontFamily: "Inter, sans-serif",
                                         fontSize: '16px',
                                         fontStyle: 'normal',
                                         fontWeight: '600px'
