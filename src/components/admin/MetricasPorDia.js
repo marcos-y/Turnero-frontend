@@ -96,7 +96,6 @@ const MetricasPorDia = (props) => {
                                     <td>{item.tipo_id}</td>
                                     {/*<td>{item.llamado_en.replace("T", "-").replace(".000Z", "")}</td>*/}
                                     <td>{item.llamado_en ?item.llamado_en.replace("T", "-").replace(".000Z", "") : null}</td>
-                                    <td>{item.llamado_en}</td>
                                     <td>{item.id}</td>
                                     {/*<td>{item.finalizado_en.replace("T", "-").replace(".000Z", "")}</td>*/}
                                     <td>{item.finalizado_en ? item.finalizado_en.replace("T", "-").replace(".000Z", "") : null}</td>

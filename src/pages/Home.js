@@ -167,9 +167,10 @@ export default function Home() {
 
                                     <p className="mb-0">
                                         <strong>Box:</strong>{" "}
-                                        {boxActual
-                                            ? `Box ${boxSeleccionado} - ${boxActual.descripcion} ${boxActual.activo === 1 ? "🟢" : "🔴"}`
-                                            : "No seleccionado"}
+                                        {boxSeleccionado
+                                            ? `Box ${boxSeleccionado}`
+                                            : "No seleccionado"
+                                        }
                                     </p>
                                 </div>
                                 <form onSubmit={handleSubmit}>
@@ -212,7 +213,6 @@ export default function Home() {
                                                 textDecoration: 'none',
                                                 marginLeft: '100px',
                                                 marginTop: '10px',
-                                                fontFamily: "Inter",
                                                 color: 'rgb(60, 60, 60)',
                                                 display: "inline-block",
                                                 border: "1px solid rgb(222, 59, 33)",
