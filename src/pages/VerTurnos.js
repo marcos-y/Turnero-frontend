@@ -54,25 +54,25 @@ const VerTurnos = () => {
             return old && old.estado !== b.estado;
         });
 
+        // actualizar referencias
+        prevA.current = turnos;
+        prevB.current = turnosPosterior;
+
         if (huboCambioB) {
             
-            //const audio = new Audio("/audio/sound.mp3");
-            //audio.play().catch(() => { });
+            const audio = new Audio("/audio/sound.mp3");
+            audio.play().catch(() => { });
 
             //const old = turnos.find(p => p.id !== turnosPosterior.id);
             //console.log(old);
 
-            const old = turnosPosterior.find(p => p.id !== turnos.id);
-            console.log(old);
+            //const old = prevA.current.find(p => p.id !== prevB.current.id);
+            //console.log(old)
 
-            const audio = new Audio(`/audio/Caja_${old.box_id}.m4a`);
-            audio.play().catch(() => { });
+            //const audio = new Audio(`/audio/Caja_${old.box_id}.m4a`);
+            //audio.play().catch(() => { });
 
         };
-
-        // actualizar referencias
-        prevA.current = turnos;
-        prevB.current = turnosPosterior;
 
     }, [turnos, turnosPosterior]);
 
