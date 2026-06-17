@@ -396,6 +396,7 @@ const Cajero = () => {
         <div className="d-flex justify-content-center gap-3 mb-4">
 
           <button
+            disabled={(turnos.length === 0) && (actual === null)}
             className="btn btn-success px-4 py-2 fw-bold"
             style={{ borderRadius: "12px", fontFamily: "Inter" }}
             onClick={llamarSiguiente}
@@ -404,6 +405,7 @@ const Cajero = () => {
           </button>
 
           <button
+            disabled={(turnos.length === 0) && (actual === null)}
             className="btn btn-danger px-4 py-2 fw-bold"
             style={{ borderRadius: "12px", fontFamily: "Inter" }}
             onClick={finalizarTurno}
@@ -412,6 +414,7 @@ const Cajero = () => {
           </button>
 
           <button
+            disabled={(turnos.length === 0) && (actual === null)}
             className="btn btn-warning px-4 py-2 fw-bold"
             style={{ borderRadius: "12px", fontFamily: "Inter" }}
             onClick={handleDerivarTurno}

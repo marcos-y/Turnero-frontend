@@ -41,7 +41,7 @@ const VerTurnos = () => {
         return () => clearInterval(interval2)
     }, []);
 
-    
+
     useEffect(() => {
 
         const huboCambioA = turnos.some(a => {
@@ -55,9 +55,20 @@ const VerTurnos = () => {
         });
 
         if (huboCambioB) {
-            const audio = new Audio("/audio/sound.mp3");
+            
+            //const audio = new Audio("/audio/sound.mp3");
+            //audio.play().catch(() => { });
+
+            //const old = turnos.find(p => p.id !== turnosPosterior.id);
+            //console.log(old);
+
+            const old = turnosPosterior.find(p => p.id !== turnos.id);
+            console.log(old);
+
+            const audio = new Audio(`/audio/Caja_${old.box_id}.m4a`);
             audio.play().catch(() => { });
-        }
+
+        };
 
         // actualizar referencias
         prevA.current = turnos;
@@ -69,7 +80,7 @@ const VerTurnos = () => {
         <>
             <div
                 className="bg-dark text-white d-flex flex-column justify-content-start"
-                style={{ height: "100vh", width: "100vw", overflow: "hidden" }}
+                style={{ height: "100vh", width: "100vw", overflow: "auto" }}
             >
 
                 {/* CONTENIDO PRINCIPAL */}
@@ -78,13 +89,13 @@ const VerTurnos = () => {
 
                         {/* 🧾 LADO IZQUIERDO - TURNOS */}
                         {/*<div className="col-md-6 d-flex flex-column">*/}
-                        <div className="d-flex flex-column">           
+                        <div className="d-flex flex-column">
                             <div className="row text-center fw-bold border-bottom pb-3 mb-4 fs-3"
                                 style={{
                                     backgroundColor: 'rgb(247, 224, 23)',
                                     fontFamily: "Inter, sans-serif",
                                     color: 'black',
-                                    fontSize:'14px'
+                                    fontSize: '14px'
                                 }}>
                                 <div className="col-4">Box</div>
                                 <div className="col-4">Turno</div>
