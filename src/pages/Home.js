@@ -7,6 +7,9 @@ import LinkCustom from "../components/Link";
 
 export default function Home() {
 
+    //spinner
+    const [loading, setLoading] = useState(false);
+
     /*********** CAJEROS **********/
     const { cajeros, loadingCajeros, errorCajeros, fetchCajeros } = useCajeros();
 
@@ -42,11 +45,15 @@ export default function Home() {
         setBoxSeleccionado(value);
     };
 
+    const [confirm, setConfirm] = useState(false);
+
     const handleSubmit = async (e) => {
 
         if (!boxSeleccionado) return
 
         e.preventDefault();
+
+        setLoading(true);
 
         try {
 
@@ -59,10 +66,34 @@ export default function Home() {
 
         } catch (error) {
             console.error("Error al enviar datos:", error);
+        } finally {
+            setLoading(false); // 👈 apaga spinner
         }
     };
 
-    const [confirm, setConfirm] = useState(false);
+
+    const handleSubmitRemove = async (e) => {
+
+        if (!boxSeleccionado) return
+
+        e.preventDefault();
+
+        setLoading(true);
+
+        try {
+
+            const res = axios.put(`http://localhost:5000/api/boxes/${boxSeleccionado}/estado`, {
+                activo: "0",
+                cajero_actual: cajeroAct
+            });
+                
+        } catch (error) {
+            console.error("Error al enviar datos:", error);
+        } finally {
+            setLoading(false); // 👈 apaga spinner
+            setConfirm(false);
+        }
+    };
 
     const handleLinkClick = () => {
 
@@ -118,14 +149,15 @@ export default function Home() {
         }
     };
 
+
     return (
         <>
             <div className="container mt-5">
-                <div style={{ fontFamily: "Inter, sans-serif"}} className="row justify-content-center">
+                <div style={{ fontFamily: "Inter, sans-serif" }} className="row justify-content-center">
 
-                    <div  className="col-md-6">
+                    <div className="col-md-6">
 
-                        <div  className="card shadow">
+                        <div className="card shadow">
                             <div className="card-header text-center" style={{ color: 'black', backgroundColor: 'rgb(247, 224, 23)' }}>
                                 <h5 className="mb-0 " style={{ fontSize: "14px" }}>Asignación de Atención</h5>
                             </div>
@@ -136,6 +168,7 @@ export default function Home() {
                                 <div className="mb-3">
                                     <label className="form-label">Box</label>
                                     <select
+                                        disabled={confirm === true}
                                         style={{
                                             borderColor: 'rgb(231, 231, 233)',
                                             maxWidth: "100%",
@@ -173,26 +206,53 @@ export default function Home() {
                                         }
                                     </p>
                                 </div>
-                                <form onSubmit={handleSubmit}>
-                                    <button
-                                        className="btn"
-                                        type="submit"
-                                        style={{
-                                            borderBottoLeftRadius: '8px',
-                                            borderBottomRightRadius: '8px',
-                                            borderBottomStyle: 'none',
-                                            borderBottomWidth: '0px',
-                                            maxWidth: "298px",
-                                            backgroundColor: 'rgb(247, 224, 23)',
-                                            fontSize: '16px',
-                                            fontStyle: 'normal',
-                                            fontWeight: '600px',
-                                            marginBottom: '20px'
-                                        }}
-                                    >
-                                        Confirmar eleccion
-                                    </button>
-                                </form>
+
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <form onSubmit={handleSubmit}>
+                                        <button
+                                            className="btn"
+                                            type="submit"
+                                            style={{
+                                                borderBottoLeftRadius: '8px',
+                                                borderBottomRightRadius: '8px',
+                                                borderBottomStyle: 'none',
+                                                borderBottomWidth: '0px',
+                                                maxWidth: "298px",
+                                                backgroundColor: 'rgb(247, 224, 23)',
+                                                fontSize: '16px',
+                                                fontStyle: 'normal',
+                                                fontWeight: '600px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            Confirmar eleccion
+                                        </button>
+                                        {loading && <h1>Cargando...</h1>}
+                                    </form>
+
+                                    <form onSubmit={handleSubmitRemove}>
+                                        <button
+                                            disabled={confirm===false}
+                                            className="btn"
+                                            type="submit"
+                                            style={{
+                                                borderBottoLeftRadius: '8px',
+                                                borderBottomRightRadius: '8px',
+                                                borderBottomStyle: 'none',
+                                                borderBottomWidth: '0px',
+                                                maxWidth: "298px",
+                                                backgroundColor: 'rgb(222, 59, 33)',
+                                                fontSize: '16px',
+                                                fontStyle: 'normal',
+                                                fontWeight: '600px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            Quitar eleccion
+                                        </button>
+                                    </form>
+                                </div>
+
                                 <Link to="/cajero"
                                     onClick={(e) => {
                                         handleClick()
@@ -203,7 +263,7 @@ export default function Home() {
                                     }}
                                     style={selected === 0 ? styleSelected : style}
                                 >
-                                    👤 IR A ATENCION
+                                    👤 Ir a atencion
                                 </Link>
                                 {
                                     (userRol === "1") ?
@@ -212,7 +272,6 @@ export default function Home() {
                                                 fontFamily: "Inter, sans-serif",
                                                 textDecoration: 'none',
                                                 marginLeft: '100px',
-                                                marginTop: '10px',
                                                 color: 'rgb(60, 60, 60)',
                                                 display: "inline-block",
                                                 border: "1px solid rgb(222, 59, 33)",
@@ -223,7 +282,7 @@ export default function Home() {
                                                 paddingTop: '12px'
                                             }}
                                         >
-                                            ADMIN
+                                            Admin
                                         </Link>
                                         :
                                         null

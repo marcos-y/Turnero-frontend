@@ -177,13 +177,13 @@ const VerTurnos = () => {
 
             </div>
             {/* 📢 BARRA INFERIOR */}
-            <div className="text-dark py-2" style={{ backgroundColor: 'rgb(247, 224, 23)', fontFamily: "Inter" }}>
+            {/*<div className="text-dark py-2" style={{ backgroundColor: 'rgb(247, 224, 23)', fontFamily: "Inter" }}>
                 <div className="overflow-hidden">
                     <div className="scroll-text fw-bold fs-5">
                         🔔 Descuentos especiales hoy | 20% OFF en servicios seleccionados | Consulte en caja 🔔
                     </div>
                 </div>
-            </div>
+            </div>*/}
 
             {/* ANIMACIÓN CSS */}
             <style>

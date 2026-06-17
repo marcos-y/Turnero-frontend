@@ -28,7 +28,6 @@ export default function Login() {
                 usuario,
                 password
             });
-            console.log(res.data)
 
             // 👉 acá luego guardás token:
             // localStorage.setItem("token", res.data.token);

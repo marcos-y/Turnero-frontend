@@ -307,6 +307,8 @@ const Cajero = () => {
 
           <div>
             <Link
+              actual={false}
+              onClick={null}
               route="/Home"
               title="volver"
               backgroundColor="rgb(222, 59, 33)"
@@ -318,6 +320,7 @@ const Cajero = () => {
             />
 
             <Link
+              actual={actual}
               onClick={handleLinkClick}
               route="/Login"
               title="🚪➡️ Cerrar Session"
@@ -326,7 +329,7 @@ const Cajero = () => {
               marginTop='none'
               marginRight='5px'
               marginBottom='10px'
-              marginLeft='15px'
+              marginLeft='7px'
             />
           </div>
         </div>

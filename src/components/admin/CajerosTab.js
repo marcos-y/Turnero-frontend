@@ -199,7 +199,15 @@ export default function CajerosTab(props) {
                                 <tr key={c.id}>
                                     <td>{c.nombre}</td>
                                     <td>{c.usuario}</td>
-                                    <td>{c.password}</td>
+                                    <td>
+                                        {c.password}
+                                        {/*<button
+                                            className="btn btn-primary btn-sm"
+                                            //onClick={() => props.destroyCajero(c.id)}
+                                        >
+                                            Cambiar
+                                        </button>*/}
+                                    </td>
                                      <td>{props.tiposUsuarios.find(t => t.id_tipo_usuario === c.id_tipo_usuario)?.nombre}</td>
                                     <th>
                                         <UserTypeSelect
