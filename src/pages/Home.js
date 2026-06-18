@@ -7,6 +7,9 @@ import LinkCustom from "../components/Link";
 
 export default function Home() {
 
+    const URL = "localhost:5000";
+    //const URL = "192.168.8.193:5000";
+
     //spinner
     const [loading, setLoading] = useState(false);
 
@@ -57,7 +60,7 @@ export default function Home() {
 
         try {
 
-            const res = axios.put(`http://localhost:5000/api/boxes/${boxSeleccionado}/estado`, {
+            const res = axios.put(`http://${URL}/api/boxes/${boxSeleccionado}/estado`, {
                 activo: "1",
                 cajero_actual: cajeroAct
             });
@@ -82,7 +85,7 @@ export default function Home() {
 
         try {
 
-            const res = axios.put(`http://localhost:5000/api/boxes/${boxSeleccionado}/estado`, {
+            const res = axios.put(`http://${URL}/api/boxes/${boxSeleccionado}/estado`, {
                 activo: "0",
                 cajero_actual: cajeroAct
             });
@@ -99,7 +102,7 @@ export default function Home() {
 
         //Borrar el estado en BOX a INACTIVO
         if (boxSeleccionado !== '') {
-            axios.put(`http://localhost:5000/api/boxes/${boxSeleccionado}/estado`, {
+            axios.put(`http://${URL}/api/boxes/${boxSeleccionado}/estado`, {
                 activo: "0",
                 cajero_actual: 0
             });

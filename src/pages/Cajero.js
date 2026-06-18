@@ -11,6 +11,9 @@ import TiposTurnoTab from "../components/admin/TiposTurnoTab";
 
 const Cajero = () => {
 
+  const URL = "localhost:5000";
+  //const URL = "192.168.8.193:5000";
+
   //Cajero actual
   const [usuario] = useState(localStorage.getItem("usuario"));
   const [box_id] = useState(localStorage.getItem("box_actual"));
@@ -43,7 +46,7 @@ const Cajero = () => {
 
     try {
 
-      const res = await axios.get(`http://localhost:5000/api/turnos/tipo/${tipo_id}/${cajero_id}`);
+      const res = await axios.get(`http://${URL}/api/turnos/tipo/${tipo_id}/${cajero_id}`);
 
       const derivados = res.data.filter(item => item.derivado === "si");
 
@@ -67,7 +70,7 @@ const Cajero = () => {
   //Todos los BOXES + CAJEROS
   const [boxes, setBoxes] = useState([]);
   const fetchBoxesCajero = async () => {
-    const res = await axios.get("http://localhost:5000/api/boxes/boxesCajero");
+    const res = await axios.get(`http://${URL}/api/boxes/boxesCajero`);
     setBoxes(res.data);
   };
 
@@ -92,6 +95,18 @@ const Cajero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  //matcheo TURNOS con TIPO TURNOS (obtengo Color, Desc, etc.)
+  function mergeById(array1, array2, key = "id") {
+    const map = new Map(array2.map(item => [item[key], item]));
+    return array1
+      .filter(item1 => map.has(item1[key]))
+      .map(item1 => ({
+        ...item1,
+        ...map.get(item1[key])
+      }));
+  };
+  const resultado = mergeById(tiposTurnosCaj, tiposTurnos);
+
   const [actual, setActual] = useState(null);
 
   const llamarSiguiente = async () => {
@@ -115,7 +130,7 @@ const Cajero = () => {
       setActual({ ...siguiente, cajero: usuario });
 
       /*¨1- asigno BOX y CAJERO al ultimo turno en FRONTEND por ID */
-      const assignBox = await axios.put(`http://localhost:5000/api/turnos/${siguiente.id}/asignar-box`, {
+      const assignBox = await axios.put(`http://${URL}/api/turnos/${siguiente.id}/asignar-box`, {
         box_id: box_id,
         cajero_id: cajero_id
       });
@@ -138,7 +153,7 @@ const Cajero = () => {
 
     if (!actual) return alert('Primero Debe llamar el siguiente Turno');
 
-    setShowModal(true);
+    //setShowModal(true);
 
     setTurnos((prev) =>
       prev.map((t) =>
@@ -149,7 +164,7 @@ const Cajero = () => {
     setActual(null);
 
     /*¨3- asigno ESTADO (en Atencion) por ID*/
-    const finishTurn = await axios.put(`http://localhost:5000/api/turnos/${actual.id}/finalizar`);
+    const finishTurn = await axios.put(`http://${URL}/api/turnos/${actual.id}/finalizar`);
 
   };
 
@@ -158,7 +173,7 @@ const Cajero = () => {
   const handleLinkClick = () => {
 
     //Borrar el estado en BOX a INACTIVO
-    axios.put(`http://localhost:5000/api/boxes/${box_id}/estado`, {
+    axios.put(`http://${URL}/api/boxes/${box_id}/estado`, {
       activo: "0",
       cajero_actual: 0
     });
@@ -247,7 +262,7 @@ const Cajero = () => {
 
     try {
 
-      const res = axios.put(`http://localhost:5000/api/turnos/${id}/cambiar-box`, {
+      const res = axios.put(`http://${URL}/api/turnos/${id}/cambiar-box`, {
         tipo_id: tipoSelected,
         cajero_id: cajeroSeleccionado,
         box_id: (boxSeleccionado !== "Sin box") ? boxSeleccionado : null,
@@ -262,21 +277,7 @@ const Cajero = () => {
     } catch (error) {
       console.error("Error al enviar datos:", error);
     }
-
   };
-
-  //matcheo TURNOS con TIPO TURNOS (obtengo Color, Desc, etc.)
-  function mergeById(array1, array2, key = "id") {
-    const map = new Map(array2.map(item => [item[key], item]));
-    return array1
-      .filter(item1 => map.has(item1[key]))
-      .map(item1 => ({
-        ...item1,
-        ...map.get(item1[key])
-      }));
-  };
-
-  const resultado = mergeById(tiposTurnosCaj, tiposTurnos);
 
   return (
     <>

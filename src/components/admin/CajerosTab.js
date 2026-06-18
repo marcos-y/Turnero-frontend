@@ -5,6 +5,9 @@ import UserTypeSelect from '../UserTypeSelect';
 
 export default function CajerosTab(props) {
 
+    const URL = "localhost:5000";
+    //const URL = "192.168.8.193:5000";
+
     //cambiar indices por ID  - son todos los tipos de TURNOS - tengo que agregarle la descripcion
     //const idsTurnos = props.tiposTurnos.map((t, index) => t.id);
 
@@ -36,7 +39,7 @@ export default function CajerosTab(props) {
 
     const handleClickAssignType = async (props) => {
 
-        await axios.put(`http://localhost:5000/api/cajeros/${props.c.id}/asignarTipoTurno`, {
+        await axios.put(`http://${URL}/api/cajeros/${props.c.id}/asignarTipoTurno`, {
             tipoId: props.item.id
         });
 
@@ -49,7 +52,7 @@ export default function CajerosTab(props) {
 
     const handleClickRemoveType = async (props) => {
 
-        await axios.put(`http://localhost:5000/api/cajeros/${props.c.id}/removerTipoTurno`, {
+        await axios.put(`http://${URL}/api/cajeros/${props.c.id}/removerTipoTurno`, {
             tipoId: props.turnoId
         });
 
@@ -71,7 +74,7 @@ export default function CajerosTab(props) {
     const [userType, setUserType] = useState("");
     const handleUserTypeChange = async (id,value) => {
         
-        await axios.put(`http://localhost:5000/api/cajeros/${id}/tipo`, {
+        await axios.put(`http://${URL}/api/cajeros/${id}/tipo`, {
             tipo: value
         });
 

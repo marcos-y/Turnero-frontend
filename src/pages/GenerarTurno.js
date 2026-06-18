@@ -6,6 +6,9 @@ import { generarPDF } from "../utils/GeneratePdf";
 
 const GenerarTurno = () => {
 
+    const URL = "localhost:5000";
+    //const URL = "192.168.8.193:5000";
+
     const [turno, setTurno] = useState(null);
     const [tiposTurnos, setTiposTurnos] = useState([]);
     const [lastTurnos, setLastTurnos] = useState([]);
@@ -16,7 +19,7 @@ const GenerarTurno = () => {
         const fetchTiposTurnos = async () => {
 
             try {
-                const response = await axios.get("http://localhost:5000/api/tipos-turno/activos");
+                const response = await axios.get(`http://${URL}/api/tipos-turno/activos`);
                 setTiposTurnos(response.data);
             } catch (error) {
                 console.error("Error al traer tipos:", error);
@@ -47,7 +50,7 @@ const GenerarTurno = () => {
             try {
                 const results = await Promise.all(
                     tiposTurnos.map(t =>
-                        axios.get(`http://localhost:5000/api/turnos/${t.prefijo}/ultimosPrefijo`)
+                        axios.get(`http://${URL}/api/turnos/${t.prefijo}/ultimosPrefijo`)
                     )
                 );
 
@@ -97,7 +100,7 @@ const GenerarTurno = () => {
                     tipo_id: tipo.id
                 });
 
-                const res = await axios.post("http://localhost:5000/api/turnos/", {
+                const res = await axios.post(`http://${URL}/api/turnos/`, {
                     codigo: nuevoCodigo,
                     tipo_id: tipo.id
                 });
@@ -127,7 +130,7 @@ const GenerarTurno = () => {
                 tipo_id: tipo.id
             });
 
-            const res = await axios.post("http://localhost:5000/api/turnos/", {
+            const res = await axios.post(`http://${URL}/api/turnos/`, {
                 codigo: nuevoCodigo,
                 tipo_id: tipo.id
             });

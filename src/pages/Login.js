@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
+    const URL = "localhost:5000";
+    //const URL = "192.168.8.193:5000";
+
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
 
     const handleLogin = async (e) => {
 
@@ -24,7 +26,7 @@ export default function Login() {
         try {
             setLoading(true);
 
-            const res = await axios.post("http://localhost:5000/api/auth/login", {
+            const res = await axios.post(`http://${URL}/api/auth/login`, {
                 usuario,
                 password
             });

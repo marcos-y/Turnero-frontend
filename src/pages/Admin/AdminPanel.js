@@ -18,6 +18,9 @@ import TiposUsuariosTab from "../../components/admin/TiposUsuariosTab";
 
 export default function AdminPanel() {
 
+    const URL = "localhost:5000";
+    //const URL = "192.168.8.193:5000";
+
     const [tab, setTab] = useState("cajeros");
     const [selected0, setSelected0] = useState(1);
     const [selected, setSelected] = useState(1);
@@ -288,7 +291,7 @@ export default function AdminPanel() {
             return alert("Completá los campos");
         }
 
-        await axios.post("http://localhost:5000/api/tipos-turno/", form);
+        await axios.post(`http://${URL}/api/tipos-turno/`, form);
 
         //setForm({ codigo: "", descripcion: "", color: "#0dcaf0", prefijo: "" });        
 
@@ -297,7 +300,7 @@ export default function AdminPanel() {
 
 
     const deleteTipo = async (id) => {
-        await axios.delete(`http://localhost:5000/api/tipos-turno/${id}`);
+        await axios.delete(`http://${URL}/api/tipos-turno/${id}`);
 
         fetchTiposTurnos();
     };
@@ -309,7 +312,7 @@ export default function AdminPanel() {
 
         estado = ((t.estado === 0) ? 1 : 0);
 
-        await axios.put(`http://localhost:5000/api/tipos-turno/${t.id}/estado`, {
+        await axios.put(`http://${URL}/api/tipos-turno/${t.id}/estado`, {
             estado: estado,
         });
 
@@ -326,7 +329,7 @@ export default function AdminPanel() {
             return alert("Completá los campos");
         }
 
-        await axios.post("http://localhost:5000/api/tipos-usuarios/", form);
+        await axios.post(`http://${URL}/api/tipos-usuarios/`, form);
 
         fetchTiposUsuarios();
     };
@@ -335,7 +338,7 @@ export default function AdminPanel() {
 
         estado = ((t.activo === 0) ? 1 : 0);
 
-        await axios.put(`http://localhost:5000/api/tipos-usuarios/${t.id_tipo_usuario}/estado`, {
+        await axios.put(`http://${URL}/api/tipos-usuarios/${t.id_tipo_usuario}/estado`, {
             estado: estado,
         });
 
@@ -343,7 +346,7 @@ export default function AdminPanel() {
     };
 
     const deleteTipoUsuario = async (id) => {
-        await axios.delete(`http://localhost:5000/api/tipos-usuarios/${id}`);
+        await axios.delete(`http://${URL}/api/tipos-usuarios/${id}`);
 
         fetchTiposUsuarios();
     };
@@ -357,7 +360,7 @@ export default function AdminPanel() {
         if (!form.numero) return alert("Número requerido");
         if (!form.descripcion) return alert("Descripción requerida");
 
-        await axios.post("http://localhost:5000/api/boxes/", form);
+        await axios.post(`http://${URL}/api/boxes/`, form);
         //setForm({ numero: "", descripcion: "" });
 
         fetchBoxes();
@@ -365,7 +368,7 @@ export default function AdminPanel() {
 
     const deleteBox = async (id) => {
 
-        await axios.delete(`http://localhost:5000/api/boxes/${id}`);
+        await axios.delete(`http://${URL}/api/boxes/${id}`);
         
         fetchBoxes();
     };
@@ -373,7 +376,7 @@ export default function AdminPanel() {
     const toggleEstado = async (box) => {
 
         const nuevoEstado = box.activo === 1 ? 0 : 1;
-        await axios.put(`http://localhost:5000/api/boxes/${box.id}/estado`, {
+        await axios.put(`http://${URL}/api/boxes/${box.id}/estado`, {
             activo: nuevoEstado
         });
 
@@ -389,20 +392,20 @@ export default function AdminPanel() {
         if (!form.usuario) return alert("Usuario requerido");
         if (!form.password) return alert("Contraseña requerida");
 
-        await axios.post("http://localhost:5000/api/cajeros/", form);
+        await axios.post(`http://${URL}/api/cajeros/`, form);
 
         //setForm({ nombre: "", usuario: "", password: "" });
         fetchCajeros();
     };
 
     const deleteCajero = async (id) => {
-        await axios.delete(`http://localhost:5000/api/cajeros/${id}`);
+        await axios.delete(`http://${URL}/api/cajeros/${id}`);
 
         fetchCajeros();
     };
 
     const destroyCajero = async (id) => {
-        await axios.delete(`http://localhost:5000/api/cajeros/${id}/delete`);
+        await axios.delete(`http://${URL}/api/cajeros/${id}/delete`);
 
         fetchCajeros();
     };
@@ -412,7 +415,7 @@ export default function AdminPanel() {
 
         const nuevoEstado = cajero.activo === 1 ? 0 : 1;
 
-        await axios.put(`http://localhost:5000/api/cajeros/${cajero.id}/estado`, {
+        await axios.put(`http://${URL}/api/cajeros/${cajero.id}/estado`, {
             activo: nuevoEstado
         });
 
