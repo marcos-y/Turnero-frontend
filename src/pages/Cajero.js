@@ -74,6 +74,12 @@ const Cajero = () => {
     setBoxes(res.data);
   };
 
+  //cajero by ID
+  const [cajeroData, setCajeroData] = useState([]);
+  const fetchCajeroById = async (cajero_id) => {
+    const res = await axios.get(`http://${URL}/api/cajeros/${cajero_id}/cajeroData`);
+    setCajeroData(res.data);
+  };
 
   useEffect(() => {
 
@@ -87,25 +93,35 @@ const Cajero = () => {
     fetchBoxesCajero();
     //fetchBoxes();
 
+    fetchCajeroById(cajero_id);
+
     const interval = setInterval(() => {
+
       fetchTurnosCajero(box_id, cajero_id);
+
       fetchBoxesCajero();
+
+      fetchCajeroById(cajero_id);
+
     }, 5000); // cada 5 segundos
 
     return () => clearInterval(interval);
   }, []);
 
-  //matcheo TURNOS con TIPO TURNOS (obtengo Color, Desc, etc.)
-  function mergeById(array1, array2, key = "id") {
-    const map = new Map(array2.map(item => [item[key], item]));
-    return array1
-      .filter(item1 => map.has(item1[key]))
-      .map(item1 => ({
-        ...item1,
-        ...map.get(item1[key])
-      }));
-  };
-  const resultado = mergeById(tiposTurnosCaj, tiposTurnos);
+  const tiposMap = Object.fromEntries(
+    tiposTurnos.map(t => [t.id, t])
+  );
+
+  const resultado = cajeroData.flatMap(turno =>
+    Object.entries(turno)
+      .filter(([_, value]) => value !== null)
+      .map(([key, value]) => ({
+        tipo: key,
+        ...tiposMap[Number(value)]
+      }))
+  );
+
+  //const resultado = mergeById(tiposTurnosCaj, tiposTurnos);
 
   const [actual, setActual] = useState(null);
 
