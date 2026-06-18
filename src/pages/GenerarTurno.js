@@ -149,7 +149,8 @@ const GenerarTurno = () => {
             style={{
                 cursor: "pointer",
                 backgroundColor: item.color,
-                height: "160px",
+                height: "200px",
+                width:"500px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -157,7 +158,8 @@ const GenerarTurno = () => {
                 fontFamily: "Inter, sans-serif",
                 fontWeight: "bold",
                 borderRadius: "12px",
-                transition: "transform 0.2s ease"
+                transition: "transform 0.2s ease",
+                marginTop:'70px'
             }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
