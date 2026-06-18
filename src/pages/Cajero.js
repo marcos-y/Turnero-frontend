@@ -11,8 +11,8 @@ import TiposTurnoTab from "../components/admin/TiposTurnoTab";
 
 const Cajero = () => {
 
-  const URL = "localhost:5000";
-  //const URL = "192.168.8.193:5000";
+  //const URL = "localhost:5000";
+  const URL = "192.168.8.193:5000";
 
   //Cajero actual
   const [usuario] = useState(localStorage.getItem("usuario"));

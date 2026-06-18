@@ -7,8 +7,8 @@ import LinkCustom from "../components/Link";
 
 export default function Home() {
 
-    const URL = "localhost:5000";
-    //const URL = "192.168.8.193:5000";
+    //const URL = "localhost:5000";
+    const URL = "192.168.8.193:5000";
 
     //spinner
     const [loading, setLoading] = useState(false);

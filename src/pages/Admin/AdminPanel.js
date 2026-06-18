@@ -18,8 +18,8 @@ import TiposUsuariosTab from "../../components/admin/TiposUsuariosTab";
 
 export default function AdminPanel() {
 
-    const URL = "localhost:5000";
-    //const URL = "192.168.8.193:5000";
+    //const URL = "localhost:5000";
+    const URL = "192.168.8.193:5000";
 
     const [tab, setTab] = useState("cajeros");
     const [selected0, setSelected0] = useState(1);

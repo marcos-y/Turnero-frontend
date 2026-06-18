@@ -5,8 +5,8 @@ import UserTypeSelect from '../UserTypeSelect';
 
 export default function CajerosTab(props) {
 
-    const URL = "localhost:5000";
-    //const URL = "192.168.8.193:5000";
+    //const URL = "localhost:5000";
+    const URL = "192.168.8.193:5000";
 
     //cambiar indices por ID  - son todos los tipos de TURNOS - tengo que agregarle la descripcion
     //const idsTurnos = props.tiposTurnos.map((t, index) => t.id);

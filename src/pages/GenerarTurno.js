@@ -6,8 +6,8 @@ import { generarPDF } from "../utils/GeneratePdf";
 
 const GenerarTurno = () => {
 
-    const URL = "localhost:5000";
-    //const URL = "192.168.8.193:5000";
+    //const URL = "localhost:5000";
+    const URL = "192.168.8.193:5000";
 
     const [turno, setTurno] = useState(null);
     const [tiposTurnos, setTiposTurnos] = useState([]);
