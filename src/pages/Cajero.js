@@ -48,13 +48,15 @@ const Cajero = () => {
 
       const res = await axios.get(`http://${URL}/api/turnos/tipo/${tipo_id}/${cajero_id}`);
 
-      const derivados = res.data.filter(item => item.derivado === "si");
+      //const derivados = res.data.filter(item => item.derivado === "si");
 
-      const resto = res.data.filter(item => item.derivado !== "si");
+      //const resto = res.data.filter(item => item.derivado !== "si");
 
-      resto.splice(4, 0, ...derivados);
+      //resto.splice(4, 0, ...derivados);
 
-      setTurnos(resto);
+      //setTurnos(resto);
+
+      setTurnos(res.data);
 
     } catch (error) {
       console.error("Error cargando turnos", error);
@@ -134,7 +136,7 @@ const Cajero = () => {
     } else {
 
       //find" trae el primer elemento de la lista PENDIENTE y del TIPO DE ATENCION
-      const siguiente = turnos.find((t) => t.estado === "pendiente");
+      const siguiente = turnos.find((t) => t.estado === "pendiente" || t.derivado === "si");
       if (!siguiente) return;
 
       setTurnos((prev) =>
