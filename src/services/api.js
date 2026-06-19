@@ -4,6 +4,13 @@ const API_URL = "https://fenixapi.uniber.com.ar:61625/getcmp/";
 export const obtenerFacturas = async (factura) => {
     try {
 
+        const getToken = await axios.post("https://fenixapi.uniber.com.ar:61625/autenticar", {
+            user: 'yoldimarcos@gmail.com',
+            pass: '6j2GQYsM4'
+        });
+
+        let token = getToken.data.token;
+
         const response = await axios.post(API_URL, {
             un: "SUPERMAT",
             letra_factura: factura.letra,
@@ -13,14 +20,14 @@ export const obtenerFacturas = async (factura) => {
         },
             {
                 headers: {
-                    //Authorization: `Bearer ${token}`,
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwidXNlcklkIjo2LCJ1c2VyTWFpbCI6InlvbGRpbWFyY29zQGdtYWlsLmNvbSIsIm1vZHVsZXMiOlsidHVybmVybyJdLCJpYXQiOjE3Nzg4MDM1NzV9.LUnFgR1KgHgfhcK2Q-1Z3ztFJ869kuQ8tHVP30kh58w",
+                    Authorization: `Bearer ${token}`,
+                    //Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwidXNlcklkIjo2LCJ1c2VyTWFpbCI6InlvbGRpbWFyY29zQGdtYWlsLmNvbSIsIm1vZHVsZXMiOlsidHVybmVybyJdLCJpYXQiOjE3Nzg4MDM1NzV9.LUnFgR1KgHgfhcK2Q-1Z3ztFJ869kuQ8tHVP30kh58w",
                 },
             }
         );
 
         if (!response.ok) {
-            throw new Error("Error al obtener usuarios");
+            throw new Error("Error al obtener facturas");
         }
 
         const data = await response.json();
