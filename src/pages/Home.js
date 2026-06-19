@@ -52,7 +52,10 @@ export default function Home() {
 
     const handleSubmit = async (e) => {
 
-        if (!boxSeleccionado) return
+        if (!boxSeleccionado) {
+            alert("Debe seleccionar un Box !");
+            return;
+        }
 
         e.preventDefault();
 
@@ -89,7 +92,7 @@ export default function Home() {
                 activo: "0",
                 cajero_actual: cajeroAct
             });
-                
+
         } catch (error) {
             console.error("Error al enviar datos:", error);
         } finally {
@@ -235,7 +238,7 @@ export default function Home() {
 
                                     <form onSubmit={handleSubmitRemove}>
                                         <button
-                                            disabled={confirm===false}
+                                            disabled={confirm === false}
                                             className="btn"
                                             type="submit"
                                             style={{
