@@ -77,7 +77,7 @@ export default function TiposUsuariosTab(props) {
                             <button
                                 className="btn btn-primary"
                                 style={{ fontFamily: "Inter, sans-serif" }}
-                                onClick={()=> props.createTipoUsuario(form)}
+                                onClick={()=> props.createTipoUsuario(form,setForm)}
                             >
                                 Agregar
                             </button>

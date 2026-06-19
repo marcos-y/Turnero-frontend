@@ -166,7 +166,7 @@ export default function CajerosTab(props) {
                         </div>
 
                         <div className="col-auto">
-                            <button className="btn btn-primary" onClick={() => props.createCajero(form)}>
+                            <button className="btn btn-primary" onClick={() => props.createCajero(form,setForm)}>
                                 Agregar
                             </button>
                         </div>

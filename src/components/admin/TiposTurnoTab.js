@@ -115,7 +115,7 @@ export default function TiposTurnoTab(props) {
                             <button
                                 className="btn btn-primary"
                                 style={{ fontFamily: "Inter, sans-serif" }}
-                                onClick={()=> props.createTipo(form)}>
+                                onClick={()=> props.createTipo(form,setForm)}>
                                 Agregar
                             </button>
                         </div>

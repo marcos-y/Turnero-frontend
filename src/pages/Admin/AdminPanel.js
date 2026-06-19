@@ -36,8 +36,8 @@ export default function AdminPanel() {
         color: "white",
         borderRadius: '5px',
         paddingBottom: '8px',
-        paddingLeft: '10px',
-        paddingRight: '10px',
+        paddingLeft: '8px',
+        paddingRight: '8px',
         paddingTop: '8px'
     };
 
@@ -123,7 +123,7 @@ export default function AdminPanel() {
         borderRadius: '5px',
         marginBottom: '10px',
         paddingBottom: '8px',
-        paddingLeft: '10px',
+        paddingLeft: '8px',
         paddingRight: '10px',
         paddingTop: '8px'
     };
@@ -285,7 +285,7 @@ export default function AdminPanel() {
     /******** TIPOS TURNOS **********/
     const { tiposTurnos, loading, error, fetchTiposTurnos } = useTiposTurnos();
 
-    const createTipo = async (form) => {
+    const createTipo = async (form, setForm) => {
 
         if (!form.codigo || !form.descripcion || !form.prefijo) {
             return alert("Completá los campos");
@@ -293,7 +293,7 @@ export default function AdminPanel() {
 
         await axios.post(`http://${URL}/api/tipos-turno/`, form);
 
-        //setForm({ codigo: "", descripcion: "", color: "#0dcaf0", prefijo: "" });        
+        setForm({ codigo: "", descripcion: "", color: "#0dcaf0", prefijo: "" });        
 
         fetchTiposTurnos();
     };
@@ -323,13 +323,15 @@ export default function AdminPanel() {
     /******** TIPOS USUARIOS **********/
     const { tiposUsuarios, fetchTiposUsuarios } = useTiposUsuarios();
 
-    const createTipoUsuario = async (form) => {
+    const createTipoUsuario = async (form, setForm) => {
 
         if (!form.nombre || !form.descripcion) {
             return alert("Completá los campos");
         }
 
         await axios.post(`http://${URL}/api/tipos-usuarios/`, form);
+
+        setForm({ nombre: "", descripcion: "" });
 
         fetchTiposUsuarios();
     };
@@ -355,13 +357,13 @@ export default function AdminPanel() {
     /*********** BOXES **********/
     const { boxes, loadingBoxes, errorBoxes, fetchBoxes } = useBoxes();
 
-    const createBox = async (form) => {
+    const createBox = async (form,setForm) => {
 
         if (!form.numero) return alert("Número requerido");
         if (!form.descripcion) return alert("Descripción requerida");
 
         await axios.post(`http://${URL}/api/boxes/`, form);
-        //setForm({ numero: "", descripcion: "" });
+        setForm({ numero: "", descripcion: "" });
 
         fetchBoxes();
     };
@@ -386,7 +388,7 @@ export default function AdminPanel() {
     /*********** CAJEROS **********/
     const { cajeros, loadingCajeros, errorCajeros, fetchCajeros } = useCajeros();
 
-    const createCajero = async (form) => {
+    const createCajero = async (form, setForm) => {
 
         if (!form.nombre) return alert("Nombre requerido");
         if (!form.usuario) return alert("Usuario requerido");
@@ -394,7 +396,7 @@ export default function AdminPanel() {
 
         await axios.post(`http://${URL}/api/cajeros/`, form);
 
-        //setForm({ nombre: "", usuario: "", password: "" });
+        setForm({ nombre: "", usuario: "", password: "" });
         fetchCajeros();
     };
 

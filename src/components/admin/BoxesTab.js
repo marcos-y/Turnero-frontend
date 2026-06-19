@@ -74,7 +74,7 @@ export default function BoxesTab(props) {
                         </div>
 
                         <div className="col-auto">
-                            <button className="btn btn-primary" onClick={() => props.createBox(form)}>
+                            <button className="btn btn-primary" onClick={() => props.createBox(form, setForm)}>
                                 Agregar
                             </button>
                         </div>
