@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { generarPDF } from "../utils/GeneratePdf";
+import logo from '../images/logo_amigo.png';
 
 const GenerarTurno = () => {
 
@@ -177,8 +178,8 @@ const GenerarTurno = () => {
                 <div className="text-center" style={{ width: "400px" }}>
 
                     {/* 🟡 MENSAJE DE BIENVENIDA */}
-                    <h2 className="mb-2 fw-bold">Bienvenido</h2>
-                    <p className="mb-4 fs-5">
+                    <h2 className="mb-2" style={{ color:'white'}}>Bienvenido</h2>
+                    <p className="mb-4 fs-5" style={{ color:'white'}}>
                         Por favor, saque su turno
                     </p>
 
@@ -204,6 +205,14 @@ const GenerarTurno = () => {
                             </p>
                         </div>
                     )}
+
+                    <img
+                        style={{ marginTop : "120px", borderRadius:'10px'}}
+                        width="100px"
+                        height="100px" 
+                        alt="logo_amigo" 
+                        src={logo}>
+                    </img>
 
                 </div>
             </div>
