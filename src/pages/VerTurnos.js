@@ -58,19 +58,15 @@ const VerTurnos = () => {
         prevA.current = turnos;
         prevB.current = turnosPosterior;
 
-        //guardar Box
-        //console.log(prevA.current)
-        //console.log(prevB.current)
 
         if (huboCambioB) {
 
-            const box = prevB.current.find(p => p.estado !== prevA.current.estado);
-            
-            const audio = new Audio(`/audio/Caja_${box.box_id}.m4a`);
-            audio.play().catch(() => { });
-
-            //const audio = new Audio("/audio/sound.mp3");
+            //const box = prevB.current.find(p => p.estado !== prevA.current.estado);
+            //const audio = new Audio(`/audio/Caja_${box.box_id}.m4a`);
             //audio.play().catch(() => { });
+
+            const audio = new Audio("/audio/sound.mp3");
+            audio.play().catch(() => { });
     
         };
 

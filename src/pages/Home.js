@@ -27,9 +27,9 @@ export default function Home() {
     const cajeroActual = cajeros.find(c => c.id === cajeroSeleccionado);
     const boxActual = boxes.find(b => b.id === boxSeleccionado);
 
-    useEffect(() => {
-        localStorage.setItem("box_actual", boxSeleccionado);
-    }, [boxSeleccionado]);
+    //useEffect(() => {
+    //    localStorage.setItem("box_actual", boxSeleccionado);
+    //}, [boxSeleccionado]);
 
     useEffect(() => {
         fetchCajeros();
@@ -50,12 +50,18 @@ export default function Home() {
 
     const [confirm, setConfirm] = useState(false);
 
+
+    //------- CONFIRMAR OPCION -----------
     const handleSubmit = async (e) => {
 
-        if (!boxSeleccionado) {
+        let box = '';
+
+        if (!boxSeleccionado && !localStorage.getItem('box_actual')) {
             alert("Debe seleccionar un Box !");
             return;
-        }
+        } else {
+            box = boxSeleccionado ? boxSeleccionado : localStorage.getItem('box_actual')
+        };
 
         e.preventDefault();
 
@@ -63,13 +69,14 @@ export default function Home() {
 
         try {
 
-            const res = axios.put(`http://${URL}/api/boxes/${boxSeleccionado}/estado`, {
+            axios.put(`http://${URL}/api/boxes/${box}/estado`, {
                 activo: "1",
                 cajero_actual: cajeroAct
             });
 
-            setConfirm(true);
+            localStorage.setItem("box_actual", boxSeleccionado);
 
+            setConfirm(true);
         } catch (error) {
             console.error("Error al enviar datos:", error);
         } finally {
@@ -78,9 +85,17 @@ export default function Home() {
     };
 
 
+    //------- QUITAR OPCION -----------
     const handleSubmitRemove = async (e) => {
 
-        if (!boxSeleccionado) return
+        let box = "";
+
+        if (!boxSeleccionado && !localStorage.getItem('box_actual')) {
+            alert("Debe seleccionar un Box !");
+            return;
+        } else {
+            box = boxSeleccionado ? boxSeleccionado : localStorage.getItem('box_actual')
+        };
 
         e.preventDefault();
 
@@ -88,10 +103,13 @@ export default function Home() {
 
         try {
 
-            const res = axios.put(`http://${URL}/api/boxes/${boxSeleccionado}/estado`, {
+            axios.put(`http://${URL}/api/boxes/${box}/estado`, {
                 activo: "0",
-                cajero_actual: cajeroAct
+                cajero_actual: 0
             });
+
+            localStorage.removeItem("box_actual");
+            localStorage.setItem('volver',false);
 
         } catch (error) {
             console.error("Error al enviar datos:", error);
@@ -101,6 +119,8 @@ export default function Home() {
         }
     };
 
+
+    //------- MODIFICAR ESTADO a INACTIVO -----------
     const handleLinkClick = () => {
 
         //Borrar el estado en BOX a INACTIVO
@@ -170,11 +190,11 @@ export default function Home() {
 
                             <div className="card-body">
 
-                                {/* BOXES */}
+                                {/* listado BOXES */}
                                 <div className="mb-3">
                                     <label className="form-label">Box</label>
                                     <select
-                                        disabled={confirm === true}
+                                        disabled={(confirm === true) || localStorage.getItem('volver') === "true" }
                                         style={{
                                             borderColor: 'rgb(231, 231, 233)',
                                             maxWidth: "100%",
@@ -186,16 +206,24 @@ export default function Home() {
                                         value={boxSeleccionado}
                                         onChange={(e) => handleSeleccion(e.target.value)}
                                     >
-                                        <option value="">Seleccionar box</option>
+                                        {
+                                            localStorage.getItem('box_actual') ?
+                                                <option value="">Box {localStorage.getItem('box_actual')}🟢Activo</option>
+                                                :
+                                                <option value="">Seleccionar box</option>
+                                        }
                                         {boxes.map((b) => (
-                                            <option
-                                                key={b.id}
-                                                value={b.id}
-                                                disabled={b.activo === 1}
-                                            >
-                                                Box {b.numero}
-                                                {b.activo === 1 ? "🟢 Activo" : "🔴 Inactivo"}
-                                            </option>
+                                            b.id == localStorage.getItem('box_actual') ?
+                                                null
+                                                :
+                                                <option
+                                                    key={b.id}
+                                                    value={b.id}
+                                                    disabled={b.activo === 1}
+                                                >
+                                                    Box {b.numero}
+                                                    {b.activo === 1 ? "🟢 Activo" : "🔴 Inactivo"}
+                                                </option>
                                         ))}
                                     </select>
                                 </div>
@@ -216,6 +244,7 @@ export default function Home() {
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <form onSubmit={handleSubmit}>
                                         <button
+                                            disabled={localStorage.getItem('box_actual')}
                                             className="btn"
                                             type="submit"
                                             style={{
@@ -238,7 +267,7 @@ export default function Home() {
 
                                     <form onSubmit={handleSubmitRemove}>
                                         <button
-                                            disabled={confirm === false}
+                                            disabled={confirm === false && localStorage.getItem('volver') !== 'true'}
                                             className="btn"
                                             type="submit"
                                             style={{

@@ -14,12 +14,15 @@ const Cajero = () => {
   const URL = "localhost:5000";
   //const URL = "192.168.8.193:5000";
 
-  //Cajero actual
+  
+  //----------------- DATOS CAJERO ACTUAL --------------------------------
   const [usuario] = useState(localStorage.getItem("usuario"));
   const [box_id] = useState(localStorage.getItem("box_actual"));
   const [cajero_id] = useState(localStorage.getItem("id"));
 
+
   //recorro todo el storage para encontrar los tipos de TURNOS del usuario (no NULL)
+  {/*
   var tiposTurnosCaj = [];
 
   for (let i = 0; i < localStorage.length; i++) {
@@ -35,81 +38,73 @@ const Cajero = () => {
       tiposTurnosCaj.push({ id: (Number(JSON.parse(value))) })
     };
   };
+  */}
 
 
-  //Tipos Turnos Todos
-  const [turnos, setTurnos] = useState([]);
-  const fetchTurnosCajero = async (box_id, cajero_id) => {
-
-    //TIPOS de turnos del USUARIO
-    const tipo_id = (tiposTurnosCaj.length === 1 ? tiposTurnosCaj[0].id : tiposTurnosCaj.map(obj => obj.id).join(","));
-
-    try {
-
-      const res = await axios.get(`http://${URL}/api/turnos/tipo/${tipo_id}/${cajero_id}`);
-
-      //const derivados = res.data.filter(item => item.derivado === "si");
-
-      //const resto = res.data.filter(item => item.derivado !== "si");
-
-      //resto.splice(4, 0, ...derivados);
-
-      //setTurnos(resto);
-
-      setTurnos(res.data);
-
-    } catch (error) {
-      console.error("Error cargando turnos", error);
-    }
-  };
-
-  /* TIPOS TURNOS */
+  //----------------- LISTADO TIPOS TURNOS (TODOS)---------------------------
   const { tiposTurnos, loadingTiposTurnos, error, fetchTiposTurnos } = useTiposTurnos();
+
 
   //cambiar indices por IDS
   const idsTurnos = tiposTurnos.map((t, index) => t.id);
 
-  //Todos los BOXES + CAJEROS
+
+  //-----------------LISTADO BOX ASOCIADOS A CADA CAJERO ----------------------
   const [boxes, setBoxes] = useState([]);
   const fetchBoxesCajero = async () => {
     const res = await axios.get(`http://${URL}/api/boxes/boxesCajero`);
     setBoxes(res.data);
   };
 
-  //cajero by ID
+
+  //----------------- DATOS DEL CAJERO (tipos de turnos del CAJERO) --------------
   const [cajeroData, setCajeroData] = useState([]);
   const fetchCajeroById = async (cajero_id) => {
     const res = await axios.get(`http://${URL}/api/cajeros/${cajero_id}/cajeroData`);
     setCajeroData(res.data);
   };
 
-  useEffect(() => {
 
-    //Tipos Turnos Todos
-    fetchTiposTurnos();
+  //----------------- LISTADO TURNOS (asociados al CAJERO) -----------------
+  const [turnos, setTurnos] = useState([]);
 
-    //Turnos asociados al CAJERO ACTUAL
-    fetchTurnosCajero(box_id, cajero_id);
+  const fetchTurnosCajero = async (cajero_id, cajeroData) => {
 
-    //Todos los BOXES + CAJEROS
-    fetchBoxesCajero();
-    //fetchBoxes();
+    //TIPOS de turnos del USUARIO (storage)
+    //const tipo_id = (tiposTurnosCaj.length === 1 ? tiposTurnosCaj[0].id : tiposTurnosCaj.map(obj => obj.id).join(","));
 
-    fetchCajeroById(cajero_id);
+    let tipo_id = "0";
 
-    const interval = setInterval(() => {
+    if (cajeroData[0] != null) 
+    {
+      tipo_id = Object.values(cajeroData[0])
+        .filter(value => value !== null)
+        .join(',');
 
-      fetchTurnosCajero(box_id, cajero_id);
+      try {
 
-      fetchBoxesCajero();
+        if (tipo_id) {
+          const res = await axios.get(`http://${URL}/api/turnos/tipo/${tipo_id}/${cajero_id}`);
 
-      fetchCajeroById(cajero_id);
+          //const derivados = res.data.filter(item => item.derivado === "si");
+          //const resto = res.data.filter(item => item.derivado !== "si");
+          //resto.splice(4, 0, ...derivados);
+          //setTurnos(resto);
 
-    }, 5000); // cada 5 segundos
+          setTurnos(res.data);
+        } else {
+          setTurnos([])
+        };
 
-    return () => clearInterval(interval);
-  }, []);
 
+      } catch (error) {
+        console.error("Error cargando turnos", error);
+      }
+    }
+
+  };
+
+  //--------------- hago match TIPOS TURNOS con TURNOS DEL CAJERO ---------------
   const tiposMap = Object.fromEntries(
     tiposTurnos.map(t => [t.id, t])
   );
@@ -123,8 +118,39 @@ const Cajero = () => {
       }))
   );
 
-  //const resultado = mergeById(tiposTurnosCaj, tiposTurnos);
+  useEffect(() => {
 
+    //Tipos Turnos Todos
+    fetchTiposTurnos();
+
+    //Tipos Turnos CAJERO por Id
+    fetchCajeroById(cajero_id);
+
+    //Todos los BOXES + CAJEROS
+    fetchBoxesCajero();
+    //fetchBoxes();
+
+    //Turnos asociados al CAJERO ACTUAL
+    fetchTurnosCajero(cajero_id, cajeroData);
+
+    const interval = setInterval(() => {
+
+      fetchCajeroById(cajero_id);
+
+      fetchBoxesCajero();
+
+      fetchTurnosCajero(cajero_id, cajeroData);
+
+    }, 5000); // cada 5 segundos
+
+    return () => clearInterval(interval);
+
+  }, [cajeroData]);
+
+
+
+
+  //---------------- LLAMAR SIGUIENTE TURNO -----------------
   const [actual, setActual] = useState(null);
 
   const llamarSiguiente = async () => {
@@ -156,17 +182,8 @@ const Cajero = () => {
     }
   };
 
-  const [showModal2, setShowModal2] = useState(false);
-  const handleCloseModal2 = () => {
-    setShowModal2(false);
-  };
-  const handleDerivarTurno = () => {
 
-    if (!actual) return alert('Primero Debe llamar el siguiente Turno');
-
-    setShowModal2(true);
-  };
-
+  //----------------- FINALIZAR TURNO-----------------
   const finalizarTurno = async () => {
 
     if (!actual) return alert('Primero Debe llamar el siguiente Turno');
@@ -186,83 +203,17 @@ const Cajero = () => {
 
   };
 
-  var boxActual = useState(localStorage.getItem("box_actual"));
-
-  const handleLinkClick = () => {
-
-    //Borrar el estado en BOX a INACTIVO
-    axios.put(`http://${URL}/api/boxes/${box_id}/estado`, {
-      activo: "0",
-      cajero_actual: 0
-    });
-
-    localStorage.clear(); // o sessionStorage.clear()
-  };
-
-  const [showModal, setShowModal] = useState(false);
-
-  // Función para manejar el clic en el botón de la imagen
-  const handleButtonClick = () => {
-    setShowModal(true);
-  };
-
-  // Función para cerrar el modal
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  //nueva factura
-  const [factura, setFactura] = useState({
-    prefijo: '',
-    letra: '',
-    numero: '',
-    pedidoGrande: false
-  });
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    setFactura({
-      ...factura,
-      [name]:
-        type === "checkbox" ? checked : value,
-    });
-  };
-
-  const [facturaData, setFacturaData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const fetchFactura = async (factura) => {
-    try {
-      setLoading(true);
-
-      const facturas = await obtenerFacturas(factura);
-
-      setFacturaData(facturas.data.data);
-      setLoading(false);
-
-    } catch (error) {
-      setLoading(false);
-      console.error("Error cargando facturas", error);
-    }
-  };
-
-  const handleConsultar = () => {
-    fetchFactura(factura)
-  };
-
+  //----------------- SELECT DERIVAR -----------------
   //1_seleccion del BOX
   const [boxSeleccionado, setBoxSeleccionado] = useState("");
   const [cajeroSeleccionado, setCajeroSeleccionado] = useState("");
 
   const handleSeleccion = async (value) => {
-    //aqui actualizo el estado a la DB
     const seleccion = value.split(" - ");
 
     setBoxSeleccionado(seleccion[0]);
     setCajeroSeleccionado(seleccion[1]);
   };
-
 
   //2_seleccion del TIPO turno
   const [tipoSelected, setTipoSelected] = useState(0);
@@ -271,6 +222,20 @@ const Cajero = () => {
   };
 
 
+  //----------------- MODAL DERIVAR-----------------
+  const [showModal2, setShowModal2] = useState(false);
+  const handleCloseModal2 = () => {
+    setShowModal2(false);
+  };
+  const handleDerivarTurno = () => {
+
+    if (!actual) return alert('Primero Debe llamar el siguiente Turno');
+
+    setShowModal2(true);
+  };
+
+
+  //----------------- FUNC DERIVAR -----------------
   const handleDerivarEndpoint = async (actual) => {
 
     //id del turno ACTUAL
@@ -297,6 +262,82 @@ const Cajero = () => {
     }
   };
 
+
+  //----------------- CREAR FACTURA -----------------
+  const [factura, setFactura] = useState({
+    prefijo: '',
+    letra: '',
+    numero: '',
+    pedidoGrande: false
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFactura({
+      ...factura,
+      [name]:
+        type === "checkbox" ? checked : value,
+    });
+  };
+
+
+  //----------------- MODAL FACTURA -----------------
+  const [showModal, setShowModal] = useState(false);
+
+  // Función para manejar el clic en el botón de la imagen
+  const handleButtonClick = () => {
+    setShowModal(true);
+  };
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+
+  //----------------- OBTENER FACTURAS -----------------
+  const [facturaData, setFacturaData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchFactura = async (factura) => {
+    try {
+      setLoading(true);
+
+      const facturas = await obtenerFacturas(factura);
+
+      setFacturaData(facturas.data.data);
+      setLoading(false);
+
+    } catch (error) {
+      setLoading(false);
+      console.error("Error cargando facturas", error);
+    }
+  };
+
+  const handleConsultar = () => {
+    fetchFactura(factura)
+  };
+
+
+  //----------------- CERRAR SESION -----------------
+  const handleLinkClick = () => {
+
+    //Borrar el estado en BOX a INACTIVO
+    axios.put(`http://${URL}/api/boxes/${box_id}/estado`, {
+      activo: "0",
+      cajero_actual: 0
+    });
+
+    localStorage.clear(); // o sessionStorage.clear()
+  };
+
+  //----------------- CERRAR SESION -----------------
+  const handleStorage = () => {
+    localStorage.setItem('volver',true);
+  };
+
+  
   return (
     <>
       <Navbar title="💼 Panel de Usuario" />
@@ -327,7 +368,7 @@ const Cajero = () => {
           <div>
             <Link
               actual={false}
-              onClick={null}
+              onClick={handleStorage}
               route="/Home"
               title="volver"
               backgroundColor="rgb(222, 59, 33)"
