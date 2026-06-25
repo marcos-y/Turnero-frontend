@@ -112,12 +112,14 @@ const VerTurnos = () => {
                                                 className="border border-dark rounded d-flex align-items-center justify-content-center fw-bold text-black"
                                                 style={{
                                                     backgroundColor: 'rgb(247, 224, 23)',
-                                                    height: (turnos.length === 1 || turnos.length === 2) ? "40vh" : (turnos.length === 3) ? "25vh" : ((turnos.length === 4) ? "20vh" : "16vh"),
+                                                    //height: (turnos.length === 1 || turnos.length === 2) ? "40vh" : (turnos.length === 3) ? "25vh" : ((turnos.length === 4) ? "20vh" : "16vh"),
+                                                    height: (turnos.length === 1 || turnos.length === 2) ? "40vh" : (turnos.length === 3) ? "25vh" : ((turnos.length >= 4) ? "18vh" : null),
                                                     fontFamily: "Inter",
                                                     fontSize: "2.5rem"
                                                 }}
                                             >
-                                                {t.box_id === null ? 'sin Box' : t.box_id}
+                                                {/*t.box_id === null ? 'sin Box' : t.box_id*/}
+                                                {t.box_numero === null ? 'sin Box' : t.box_numero}
                                             </div>
                                         </div>
 
