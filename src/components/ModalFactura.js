@@ -73,7 +73,7 @@ export default function ModalFactura(props) {
                                 </div>
                             </div>
 
-                            {/* Checkbox */}
+                            {/* Checkbox 
                             <div className="col-12">
                                 <div className="form-check mt-2">
                                     <input
@@ -92,7 +92,7 @@ export default function ModalFactura(props) {
                                         Pedido grande
                                     </label>
                                 </div>
-                            </div>
+                            </div>*/}
 
                             <button
                                 onClick={props.handleConsultar}
