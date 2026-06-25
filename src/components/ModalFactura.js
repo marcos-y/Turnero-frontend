@@ -117,11 +117,11 @@ export default function ModalFactura(props) {
                             </ul>
 
                             {/* Botón */}
-                            <div className="d-grid mt-4">
+                            {/*<div className="d-grid mt-4">
                                 <button className="btn btn-primary btn-lg">
                                     Guardar Factura
                                 </button>
-                            </div>
+                            </div>*/}
 
                         </div>
                     </div>
