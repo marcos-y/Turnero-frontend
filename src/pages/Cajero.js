@@ -11,34 +11,14 @@ import TiposTurnoTab from "../components/admin/TiposTurnoTab";
 
 const Cajero = () => {
 
-  const URL = "localhost:5000";
-  //const URL = "192.168.8.193:5000";
+  //const URL = "localhost:5000";
+  const URL = "192.168.8.193:5000";
 
-  
+
   //----------------- DATOS CAJERO ACTUAL --------------------------------
   const [usuario] = useState(localStorage.getItem("usuario"));
   const [box_id] = useState(localStorage.getItem("box_actual"));
   const [cajero_id] = useState(localStorage.getItem("id"));
-
-
-  //recorro todo el storage para encontrar los tipos de TURNOS del usuario (no NULL)
-  {/*
-  var tiposTurnosCaj = [];
-
-  for (let i = 0; i < localStorage.length; i++) {
-
-    const key = localStorage.key(i);
-    const value = localStorage.getItem(key);
-
-    if (key.includes("tipo_turno") && value != null) {
-
-      //localStorage.getItem(key);
-      let newKey = "id";
-
-      tiposTurnosCaj.push({ id: (Number(JSON.parse(value))) })
-    };
-  };
-  */}
 
 
   //----------------- LISTADO TIPOS TURNOS (TODOS)---------------------------
@@ -70,13 +50,9 @@ const Cajero = () => {
 
   const fetchTurnosCajero = async (cajero_id, cajeroData) => {
 
-    //TIPOS de turnos del USUARIO (storage)
-    //const tipo_id = (tiposTurnosCaj.length === 1 ? tiposTurnosCaj[0].id : tiposTurnosCaj.map(obj => obj.id).join(","));
-
     let tipo_id = "0";
 
-    if (cajeroData[0] != null) 
-    {
+    if (cajeroData[0] != null) {
       tipo_id = Object.values(cajeroData[0])
         .filter(value => value !== null)
         .join(',');
@@ -182,26 +158,6 @@ const Cajero = () => {
     }
   };
 
-
-  //----------------- FINALIZAR TURNO-----------------
-  const finalizarTurno = async () => {
-
-    if (!actual) return alert('Primero Debe llamar el siguiente Turno');
-
-    //setShowModal(true);
-
-    setTurnos((prev) =>
-      prev.map((t) =>
-        t.id === actual.id ? { ...t, estado: "finalizado" } : t
-      )
-    );
-
-    setActual(null);
-
-    /*¨3- asigno ESTADO (en Atencion) por ID*/
-    const finishTurn = await axios.put(`http://${URL}/api/turnos/${actual.id}/finalizar`);
-
-  };
 
   //----------------- SELECT DERIVAR -----------------
   //1_seleccion del BOX
@@ -320,6 +276,71 @@ const Cajero = () => {
   };
 
 
+  //----------------- GUARDAR FACTURA -----------------
+  const handleSave = async (actual) => {
+
+    if (!factura.prefijo || !factura.letra || !factura.numero){
+            alert("complete todos los campos para guardar !");
+            return;
+    }
+
+    //console.log(factura.prefijo);
+    //console.log(factura.letra);
+    //console.log(factura.numero);
+    //console.log(factura.pedidoGrande);
+
+    let id = actual.id;
+
+    let nro_factura = (factura.letra+'-'+factura.prefijo+'-'+factura.numero);
+    let pedidoGrande = factura.pedidoGrande;
+
+    try {
+      await axios.put(`http://localhost:5000/api/turnos/${id}/factura`, {
+        nro_factura: nro_factura,
+        cliente: "jose hernandez",
+        entrega_grande: pedidoGrande
+      });
+    } catch (error) {
+      console.error("Error guardando factura", error);
+    }
+
+    setShowModal(false);
+  };
+
+
+  //----------------- FINALIZAR TURNO-----------------
+  //-- aguardo que cierre modal de guardar factura para FINALIZAR TURNO
+
+  useEffect(() => {
+    if (!showModal) {
+      setActual(null);
+    }
+  }, [showModal]);
+
+
+  const finalizarTurno = async () => {
+
+    if (!actual) return alert('Primero Debe llamar el siguiente Turno');
+
+    setTurnos((prev) =>
+      prev.map((t) =>
+        t.id === actual.id ? { ...t, estado: "finalizado" } : t
+      )
+    );
+
+    /*1- abro modal guardar factura*/
+    setShowModal(true);
+
+    //if(!showModal){
+    //  setActual(null);
+    //}
+
+    /*¨3- asigno ESTADO (en Atencion) por ID*/
+    const finishTurn = await axios.put(`http://${URL}/api/turnos/${actual.id}/finalizar`);
+
+  };
+
+
   //----------------- CERRAR SESION -----------------
   const handleLinkClick = () => {
 
@@ -334,10 +355,10 @@ const Cajero = () => {
 
   //----------------- CERRAR SESION -----------------
   const handleStorage = () => {
-    localStorage.setItem('volver',true);
+    localStorage.setItem('volver', true);
   };
 
-  
+
   return (
     <>
       <Navbar title="💼 Panel de Usuario" />
@@ -540,6 +561,8 @@ const Cajero = () => {
           handleConsultar={handleConsultar}
           facturaData={facturaData}
           loading={loading}
+          handleSave={handleSave}
+          actual={actual}
         />
       }
       {/* Modal Derivar*/}
