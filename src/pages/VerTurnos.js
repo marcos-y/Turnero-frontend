@@ -17,7 +17,6 @@ const VerTurnos = () => {
         if (tipo.estado === 'en_atencion') {
             return {
                 bg: "bg-danger"
-                //shadow: "0 0 20px rgba(220,53,69,0.6)"
             };
         }
 
@@ -128,7 +127,7 @@ const VerTurnos = () => {
                                             <div
                                                 className="rounded d-flex align-items-center justify-content-center fw-bold text-white"
                                                 style={{
-                                                    height: (turnos.length === 1 || turnos.length === 2) ? "40vh" : (turnos.length === 3) ? "25vh" : ((turnos.length === 4) ? "20vh" : "16vh"),
+                                                    height: (turnos.length === 1 || turnos.length === 2) ? "40vh" : (turnos.length === 3) ? "25vh" : ((turnos.length >= 4) ? "18vh" : null),
                                                     fontSize: "3rem",
                                                     letterSpacing: "3px",
                                                     backgroundColor: esActivo ? "rgb(222, 59, 33)" : "#0dcaf0",
@@ -147,7 +146,7 @@ const VerTurnos = () => {
                                             <div
                                                 className={`${t.estado === 'en_atencion' ? color.bg : ''} rounded d-flex align-items-center justify-content-center fw-bold text-white`}
                                                 style={{
-                                                    height: (turnos.length === 1 || turnos.length === 2) ? "40vh" : (turnos.length === 3) ? "25vh" : ((turnos.length === 4) ? "20vh" : "16vh"),
+                                                    height: (turnos.length === 1 || turnos.length === 2) ? "40vh" : (turnos.length === 3) ? "25vh" : ((turnos.length >= 4) ? "18vh" : null),
                                                     fontFamily: "Inter",
                                                     fontSize: "3rem",
                                                     //boxShadow: color.shadow,
