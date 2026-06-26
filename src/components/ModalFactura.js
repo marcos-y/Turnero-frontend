@@ -117,6 +117,7 @@ export default function ModalFactura(props) {
                             </ul>
 
                             {/* Botón */}
+                            {props.finalizar ?
                             <div className="d-grid mt-4">
                                 <button
                                   onClick={()=>props.handleSave(props.actual)}
@@ -124,7 +125,9 @@ export default function ModalFactura(props) {
                                     Guardar Factura
                                 </button>
                             </div>
-
+                            :
+                            null
+                            }
                         </div>
                     </div>
                 </div>

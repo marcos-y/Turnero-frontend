@@ -284,11 +284,6 @@ const Cajero = () => {
             return;
     }
 
-    //console.log(factura.prefijo);
-    //console.log(factura.letra);
-    //console.log(factura.numero);
-    //console.log(factura.pedidoGrande);
-
     let id = actual.id;
 
     let nro_factura = (factura.letra+'-'+factura.prefijo+'-'+factura.numero);
@@ -317,7 +312,7 @@ const Cajero = () => {
     }
   }, [showModal]);
 
-
+  const [finalizar, setFinalizar] = useState(false)
   const finalizarTurno = async () => {
 
     if (!actual) return alert('Primero Debe llamar el siguiente Turno');
@@ -327,6 +322,9 @@ const Cajero = () => {
         t.id === actual.id ? { ...t, estado: "finalizado" } : t
       )
     );
+
+    //para mostrar el guardar factura
+    setFinalizar(true);
 
     /*1- abro modal guardar factura*/
     setShowModal(true);
@@ -559,6 +557,7 @@ const Cajero = () => {
       {/* Modal Factura*/}
       {
         <ModalFactura
+          finalizar={finalizar}
           showModal={showModal}
           handleCloseModal={handleCloseModal}
           factura={factura}
