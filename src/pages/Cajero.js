@@ -342,10 +342,15 @@ const Cajero = () => {
 
 
   //----------------- CERRAR SESION -----------------
-  const handleLinkClick = () => {
+  const handleLinkClick = async () => {
+
+    // si hay turno activo, dar como finalizado
+    if(actual){
+      await axios.put(`http://${URL}/api/turnos/${actual.id}/finalizar`) 
+    };
 
     //Borrar el estado en BOX a INACTIVO
-    axios.put(`http://${URL}/api/boxes/${box_id}/estado`, {
+    await axios.put(`http://${URL}/api/boxes/${box_id}/estado`, {
       activo: "0",
       cajero_actual: 0
     });
