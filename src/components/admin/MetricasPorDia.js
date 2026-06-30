@@ -42,7 +42,7 @@ const MetricasPorDia = (props) => {
 
                             <tr key={item.fecha}>
 
-                                <td>{item.fecha}</td>
+                               <td>{item.fecha.replace("T", "-").replace(".000Z", "").substring(0, 10)}</td>
 
                                 <td>{item.total_turnos}</td>
 
@@ -97,21 +97,17 @@ const MetricasPorDia = (props) => {
                             props.turnosDia.map((item) => (
                                 <tr key={item.id}>
                                     <td>{item.tipo_id}</td>
-                                    {/*<td>{item.llamado_en.replace("T", "-").replace(".000Z", "")}</td>*/}
                                     <td>{item.llamado_en ?item.llamado_en.replace("T", "-").replace(".000Z", "") : null}</td>
                                     <td>{item.id}</td>
-                                    {/*<td>{item.finalizado_en.replace("T", "-").replace(".000Z", "")}</td>*/}
                                     <td>{item.finalizado_en ? item.finalizado_en.replace("T", "-").replace(".000Z", "") : null}</td>
                                     <td>{item.estado}</td>
                                     <td>{item.duracion_minutos}</td>
                                     <td>{item.duracion_espera}</td>
                                     <td>{item.derivado ? item.creado_en.replace("T", "-").replace(".000Z", "") : null}</td>
-                                    {/*<td>{item.creado_en.replace("T", "-").replace(".000Z", "")}</td>*/}
                                     <td>{item.creado_en}</td>
                                     <td>{item.codigo}</td>
                                     <td>{item.cajero_nombre}</td>
                                     <td>{item.box_id}</td>
-
                                     <td>{item.nro_factura}</td>
                                     <td>{item.cliente}</td>
                                     <td>{item.entrega_grande === '1' ? "si" : null}</td>

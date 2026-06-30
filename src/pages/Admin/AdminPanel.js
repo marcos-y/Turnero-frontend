@@ -293,18 +293,21 @@ export default function AdminPanel() {
 
         await axios.post(`http://${URL}/api/tipos-turno/`, form);
 
-        setForm({ codigo: "", descripcion: "", color: "#0dcaf0", prefijo: "" });        
+        setForm({ codigo: "", descripcion: "", color: "#0dcaf0", prefijo: "" });
 
         fetchTiposTurnos();
     };
 
 
     const deleteTipo = async (id) => {
-        await axios.delete(`http://${URL}/api/tipos-turno/${id}`);
 
-        fetchTiposTurnos();
+        if (window.confirm("¿Eliminar este registro?")) {
+
+            await axios.delete(`http://${URL}/api/tipos-turno/${id}`);
+
+            fetchTiposTurnos();
+        }
     };
-
 
     let estado = 0;
 
@@ -357,7 +360,7 @@ export default function AdminPanel() {
     /*********** BOXES **********/
     const { boxes, loadingBoxes, errorBoxes, fetchBoxes } = useBoxes();
 
-    const createBox = async (form,setForm) => {
+    const createBox = async (form, setForm) => {
 
         if (!form.numero) return alert("Número requerido");
         if (!form.descripcion) return alert("Descripción requerida");
@@ -371,7 +374,7 @@ export default function AdminPanel() {
     const deleteBox = async (id) => {
 
         await axios.delete(`http://${URL}/api/boxes/${id}`);
-        
+
         fetchBoxes();
     };
 
@@ -537,6 +540,7 @@ export default function AdminPanel() {
                 />}
                 {tab === "tipos" && <TiposTurnoTab
                     tiposTurnos={tiposTurnos}
+                    fetchTiposTurnos={fetchTiposTurnos}
                     createTipo={createTipo}
                     deleteTipo={deleteTipo}
                     updateState={updateState} />}
