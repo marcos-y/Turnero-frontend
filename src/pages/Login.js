@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
-    const URL = "localhost:5000";
-    //const URL = "192.168.8.193:5000";
+    //const URL = "localhost:5000";
+    const URL = "192.168.8.193:5000";
 
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState("");
