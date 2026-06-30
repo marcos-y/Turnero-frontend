@@ -101,7 +101,7 @@ const GenerarTurno = () => {
                     tipo_id: tipo.id
                 });
 
-                const res = await axios.post(`http://${URL}/api/turnos/`, {
+                await axios.post(`http://${URL}/api/turnos/`, {
                     codigo: nuevoCodigo,
                     tipo_id: tipo.id
                 });
@@ -131,7 +131,7 @@ const GenerarTurno = () => {
                 tipo_id: tipo.id
             });
 
-            const res = await axios.post(`http://${URL}/api/turnos/`, {
+            await axios.post(`http://${URL}/api/turnos/`, {
                 codigo: nuevoCodigo,
                 tipo_id: tipo.id
             });
