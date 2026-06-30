@@ -14,7 +14,7 @@ export default function Home() {
     const [loading, setLoading] = useState(false);
 
     /*********** CAJEROS **********/
-    const { cajeros, loadingCajeros, errorCajeros, fetchCajeros } = useCajeros();
+    const { cajeros, errorCajeros, fetchCajeros } = useCajeros();
 
     /*********** BOXES **********/
     const { boxes, loadingBoxes, errorBoxes, fetchBoxes } = useBoxes();
@@ -23,13 +23,6 @@ export default function Home() {
     const [cajeroSeleccionado, setCajeroSeleccionado] = useState("");
     const [boxSeleccionado, setBoxSeleccionado] = useState("");
     const [userRol, setUserRol] = useState(localStorage.getItem("id_tipo_usuario"));
-
-    const cajeroActual = cajeros.find(c => c.id === cajeroSeleccionado);
-    const boxActual = boxes.find(b => b.id === boxSeleccionado);
-
-    //useEffect(() => {
-    //    localStorage.setItem("box_actual", boxSeleccionado);
-    //}, [boxSeleccionado]);
 
     useEffect(() => {
         fetchCajeros();

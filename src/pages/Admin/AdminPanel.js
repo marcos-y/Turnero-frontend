@@ -495,6 +495,7 @@ export default function AdminPanel() {
                         />
                     </li>
 
+                    {/*
                     <li className="nav-item">
                         <Button
                             title="TIPOS DE USUARIOS"
@@ -506,6 +507,7 @@ export default function AdminPanel() {
                             handleClick={handleClick}
                         />
                     </li>
+                    */}
                 </ul>
 
                 {/* CONTENIDO */}
@@ -520,12 +522,12 @@ export default function AdminPanel() {
                     tiposUsuarios={tiposUsuarios}
                     tiposTurnos={tiposTurnos}
                     fetchTiposUsuarios={fetchTiposUsuarios} />}
-                {tab === "tipos_usuarios" && <TiposUsuariosTab
+                {/*tab === "tipos_usuarios" && <TiposUsuariosTab
                     tiposUsuarios={tiposUsuarios}
                     createTipoUsuario={createTipoUsuario}
                     updateStateTipoUsuario={updateStateTipoUsuario}
                     deleteTipoUsuario={deleteTipoUsuario}
-                />}
+                />*/}
                 {tab === "boxes" && <BoxesTab
                     boxes={boxes}
                     createBox={createBox}

@@ -86,6 +86,9 @@ const MetricasPorDia = (props) => {
                             <th>codigo</th>
                             <th>cajero</th>
                             <th>box_id</th>
+                            <th>nro_factura</th>
+                            <th>cliente</th>
+                            <th>entrega_grande</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,6 +111,10 @@ const MetricasPorDia = (props) => {
                                     <td>{item.codigo}</td>
                                     <td>{item.cajero_nombre}</td>
                                     <td>{item.box_id}</td>
+
+                                    <td>{item.nro_factura}</td>
+                                    <td>{item.cliente}</td>
+                                    <td>{item.entrega_grande === '1' ? "si" : null}</td>
                                 </tr>
                             ))
 
