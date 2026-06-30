@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import UserTypeSelect from '../UserTypeSelect';
+import Badge from "../Badge";
 
 export default function CajerosTab(props) {
 
     //const URL = "localhost:5000";
     const URL = "192.168.8.193:5000";
-
-    //cambiar indices por ID  - son todos los tipos de TURNOS - tengo que agregarle la descripcion
-    //const idsTurnos = props.tiposTurnos.map((t, index) => t.id);
 
     const idsTurnos = props.tiposTurnos.map(turno => ({
         id: turno.id,
@@ -72,8 +70,8 @@ export default function CajerosTab(props) {
     const [loggedUser, setLoggedUser] = useState(localStorage.getItem("usuario"));
 
     const [userType, setUserType] = useState("");
-    const handleUserTypeChange = async (id,value) => {
-        
+    const handleUserTypeChange = async (id, value) => {
+
         await axios.put(`http://${URL}/api/cajeros/${id}/tipo`, {
             tipo: value
         });
@@ -81,212 +79,264 @@ export default function CajerosTab(props) {
         props.fetchCajeros();
     };
 
+    /* BADGE MODAL*/
+    const [id,setId] = useState("");
+
+    const [open, setOpen] = useState(false);
+    //const openModal = () => setOpen(true);
+    const closeModal = () => setOpen(false);
+
+    const openModal = (idUser) =>{
+        setId(idUser);
+        setOpen(true);
+    } 
+
+    const modalOverlay = {
+        display: open ? "flex" : "none",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+    };
+
+    const modalContent = {
+        backgroundColor: "white",
+        padding: "20px",
+        borderRadius: "8px",
+        width: "300px",
+        position: "relative",
+    };
+
+    const [newPassword, setNewPassword] = useState("");
+
+    const handleChangePassword = (e) => {
+        setNewPassword(e.target.value);
+    };
+
+    const saveNewPassword = async (id) =>{
+
+        await axios.put(`http://${URL}/api/cajeros/${id}/password`, {
+            password: newPassword
+        });
+
+        props.fetchCajeros();
+
+        closeModal();
+    };
+    
     return (
-        <div>
+        <>
+            <div>
 
-            {/* FORM */}
-            <div className="card mb-3">
-                <div className="card-body" style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} >
+                {/* FORM */}
+                <div className="card mb-3">
+                    <div className="card-body" style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} >
 
-                    <div className="row g-2">
+                        <div className="row g-2">
 
-                        <div className="col">
-                            <input
-                                onFocus={(e) => {
-                                    setFocus(true);
-                                    e.target.style.outline = "none";
-                                }}
-                                onBlur={(e) => {
-                                    setFocus(false);
-                                    e.target.style.outline = "";
-                                }}
-                                style={{
-                                    border: "1px solid",
-                                    borderColor: focus ? "rgb(247, 224, 23)" : "rgb(175, 175, 175)",
-                                    padding: "8px",
-                                    outline: "none",
-                                    borderRadius: '5px',
-                                    width: '100%'
-                                }}
-                                placeholder="Nombre"
-                                name="nombre"
-                                value={form.nombre}
-                                onChange={handleChange}
-                            />
-                        </div>
+                            <div className="col">
+                                <input
+                                    onFocus={(e) => {
+                                        setFocus(true);
+                                        e.target.style.outline = "none";
+                                    }}
+                                    onBlur={(e) => {
+                                        setFocus(false);
+                                        e.target.style.outline = "";
+                                    }}
+                                    style={{
+                                        border: "1px solid",
+                                        borderColor: focus ? "rgb(247, 224, 23)" : "rgb(175, 175, 175)",
+                                        padding: "8px",
+                                        outline: "none",
+                                        borderRadius: '5px',
+                                        width: '100%'
+                                    }}
+                                    placeholder="Nombre"
+                                    name="nombre"
+                                    value={form.nombre}
+                                    onChange={handleChange}
+                                />
+                            </div>
 
-                        <div className="col">
-                            <input
-                                onFocus={(e) => {
-                                    setFocus2(true);
-                                    e.target.style.outline = "none";
-                                }}
-                                onBlur={(e) => {
-                                    setFocus2(false);
-                                    e.target.style.outline = "";
-                                }}
-                                style={{
-                                    border: "1px solid",
-                                    borderColor: focus2 ? "rgb(247, 224, 23)" : "rgb(175, 175, 175)",
-                                    padding: "8px",
-                                    outline: "none",
-                                    borderRadius: '5px',
-                                    width: '100%'
-                                }}
-                                placeholder="Usuario"
-                                name="usuario"
-                                value={form.usuario}
-                                onChange={handleChange}
-                            />
-                        </div>
+                            <div className="col">
+                                <input
+                                    onFocus={(e) => {
+                                        setFocus2(true);
+                                        e.target.style.outline = "none";
+                                    }}
+                                    onBlur={(e) => {
+                                        setFocus2(false);
+                                        e.target.style.outline = "";
+                                    }}
+                                    style={{
+                                        border: "1px solid",
+                                        borderColor: focus2 ? "rgb(247, 224, 23)" : "rgb(175, 175, 175)",
+                                        padding: "8px",
+                                        outline: "none",
+                                        borderRadius: '5px',
+                                        width: '100%'
+                                    }}
+                                    placeholder="Usuario"
+                                    name="usuario"
+                                    value={form.usuario}
+                                    onChange={handleChange}
+                                />
+                            </div>
 
-                        <div className="col">
-                            <input
-                                onFocus={(e) => {
-                                    setFocus3(true);
-                                    e.target.style.outline = "none";
-                                }}
-                                onBlur={(e) => {
-                                    setFocus3(false);
-                                    e.target.style.outline = "";
-                                }}
-                                style={{
-                                    border: "1px solid",
-                                    borderColor: focus3 ? "rgb(247, 224, 23)" : "rgb(175, 175, 175)",
-                                    padding: "8px",
-                                    outline: "none",
-                                    borderRadius: '5px',
-                                    width: '100%'
-                                }}
-                                placeholder="Password"
-                                name="password"
-                                value={form.password}
-                                onChange={handleChange}
-                            />
-                        </div>
+                            <div className="col">
+                                <input
+                                    onFocus={(e) => {
+                                        setFocus3(true);
+                                        e.target.style.outline = "none";
+                                    }}
+                                    onBlur={(e) => {
+                                        setFocus3(false);
+                                        e.target.style.outline = "";
+                                    }}
+                                    style={{
+                                        border: "1px solid",
+                                        borderColor: focus3 ? "rgb(247, 224, 23)" : "rgb(175, 175, 175)",
+                                        padding: "8px",
+                                        outline: "none",
+                                        borderRadius: '5px',
+                                        width: '100%'
+                                    }}
+                                    placeholder="Password"
+                                    name="password"
+                                    value={form.password}
+                                    onChange={handleChange}
+                                />
+                            </div>
 
-                        <div className="col-auto">
-                            <button className="btn btn-primary" onClick={() => props.createCajero(form,setForm)}>
-                                Agregar
-                            </button>
+                            <div className="col-auto">
+                                <button className="btn btn-primary" onClick={() => props.createCajero(form, setForm)}>
+                                    Agregar
+                                </button>
+                            </div>
+
                         </div>
 
                     </div>
-
                 </div>
-            </div>
 
-            {/* LISTA */}
-            <div className="card">
-                <div className="card-body">
+                {/* LISTA */}
+                <div className="card">
+                    <div className="card-body">
 
-                    <table style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} className="table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Usuario</th>
-                                <th>Contraseña</th>
-                                <th>Rol</th>
-                                <th>Cambiar Rol</th>
-                                <th>Estado</th>
-                                <th>Tipo Atención</th>
-                                <th>Asignar Tipo Atención</th>
-                                <th>Quitar Tipo Atención</th>
-                                <th>Desactivar Usuario</th>
-                                <th>Eliminar Usuario</th>
-                            </tr>
-                        </thead>
+                        <table style={{ fontFamily: "Inter, sans-serif", fontSize: '13px' }} className="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Usuario</th>
+                                    <th>Contraseña</th>
+                                    <th>Rol</th>
+                                    <th>Cambiar Rol</th>
+                                    <th>Estado</th>
+                                    <th>Tipo Atención</th>
+                                    <th>Asignar Tipo Atención</th>
+                                    <th>Quitar Tipo Atención</th>
+                                    {/*<th>Editar</th>*/}
+                                    <th>Desactivar</th>
+                                    {/*<th>Eliminar Usuario</th>*/}
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            {props.cajeros.map(c => (
-                                <tr key={c.id}>
-                                    <td>{c.nombre}</td>
-                                    <td>{c.usuario}</td>
-                                    <td>
-                                        {c.password}
-                                        {/*<button
-                                            className="btn btn-primary btn-sm"
-                                            //onClick={() => props.destroyCajero(c.id)}
-                                        >
-                                            Cambiar
-                                        </button>*/}
-                                    </td>
-                                     <td>{props.tiposUsuarios.find(t => t.id_tipo_usuario === c.id_tipo_usuario)?.nombre}</td>
-                                    <th>
-                                        <UserTypeSelect
-                                            //key={c.id}
-                                            idUser={c.id}
-                                            array={props.tiposUsuarios}
-                                            //value={userType}
-                                            handleChange={handleUserTypeChange}
-                                           />
-                                    </th>
-                                    <td>
-                                        {c.activo === 1 ? "🟢 Activo" : "🔴 Inactivo"}
-                                    </td>
-                                    <td>
-                                        {idsTurnos.map((turno, index) => (c["tipo_turno_" + turno.id] !== null ? ((turno.estado === 1) ? turno.descripcion + " | " : null) : ''))}
-                                        {/*idsTurnos.map((id, descripcion, index) => ((c["tipo_turno_" + id] != null) ? ((descripcion)  +" | ") : ''))*/}
-                                    </td>
-                                    <td>
-                                        {props.tiposTurnos.map((item, index) => (
-                                            item.estado !== 0 ?
-                                                <button
-                                                    disabled={c["tipo_turno_" + item.id] !== null ? true : false}
-                                                    onClick={() => handleClickAssignType({ c, item })}
-                                                    className={`btn btn-sm`}
-                                                    style={{
-                                                        backgroundColor: item.color,
-                                                        fontFamily: "Inter, sans-serif",
-                                                        color: 'white',
-                                                        marginLeft: '2px',
-                                                        marginRight: '2px',
-                                                    }}
-                                                    key={index}>{item.codigo}
-                                                </button>
-                                                :
-                                                ''
-                                        ))}
-                                    </td>
-                                    <td>
-                                        <div>
-                                            {idsTurnos.map((turno, index) => (c["tipo_turno_" + turno.id] !== null ?
-                                                (<>
-                                                    {
-                                                        turno.estado !== 0 ?
-                                                            <>
-                                                                <Form.Check
-                                                                    type="switch"
-                                                                    id={`switch-turno-${index}`}
-                                                                    label={`${turno.descripcion}`}
-                                                                    onChange={() => handleClickRemoveType({ c, turnoId: turno.id })}
-                                                                    checked={c["tipo_turno_" + turno.id] != null}
-                                                                />  {''}
-                                                            </>
-                                                            :
-                                                            ''
-                                                    }
-                                                </>)
-                                                :
-                                                ''))}
-                                        </div>
-                                    </td>
-
-                                    <td>
+                            <tbody>
+                                {props.cajeros.map(c => (
+                                    <tr key={c.id}>
+                                        <td>{c.nombre}</td>
+                                        <td>{c.usuario}</td>
+                                        <td>
+                                            {c.password}
+                                            <Badge onClick={() =>openModal(c.id)} label="cambiar" />
+                                        </td>
+                                        <td>{props.tiposUsuarios.find(t => t.id_tipo_usuario === c.id_tipo_usuario)?.nombre}</td>
+                                        <th>
+                                            <UserTypeSelect
+                                                //key={c.id}
+                                                idUser={c.id}
+                                                array={props.tiposUsuarios}
+                                                //value={userType}
+                                                handleChange={handleUserTypeChange}
+                                            />
+                                        </th>
+                                        <td>
+                                            {c.activo === 1 ? "🟢 Activo" : "🔴 Inactivo"}
+                                        </td>
+                                        <td>
+                                            {idsTurnos.map((turno, index) => (c["tipo_turno_" + turno.id] !== null ? ((turno.estado === 1) ? turno.descripcion + " | " : null) : ''))}
+                                            {/*idsTurnos.map((id, descripcion, index) => ((c["tipo_turno_" + id] != null) ? ((descripcion)  +" | ") : ''))*/}
+                                        </td>
+                                        <td>
+                                            {props.tiposTurnos.map((item, index) => (
+                                                item.estado !== 0 ?
+                                                    <button
+                                                        disabled={c["tipo_turno_" + item.id] !== null ? true : false}
+                                                        onClick={() => handleClickAssignType({ c, item })}
+                                                        className={`btn btn-sm`}
+                                                        style={{
+                                                            backgroundColor: item.color,
+                                                            fontFamily: "Inter, sans-serif",
+                                                            color: 'white',
+                                                            marginLeft: '2px',
+                                                            marginRight: '2px',
+                                                        }}
+                                                        key={index}>{item.codigo}
+                                                    </button>
+                                                    :
+                                                    ''
+                                            ))}
+                                        </td>
+                                        <td>
+                                            <div>
+                                                {idsTurnos.map((turno, index) => (c["tipo_turno_" + turno.id] !== null ?
+                                                    (<>
+                                                        {
+                                                            turno.estado !== 0 ?
+                                                                <>
+                                                                    <Form.Check
+                                                                        type="switch"
+                                                                        id={`switch-turno-${index}`}
+                                                                        label={`${turno.descripcion}`}
+                                                                        onChange={() => handleClickRemoveType({ c, turnoId: turno.id })}
+                                                                        checked={c["tipo_turno_" + turno.id] != null}
+                                                                    />  {''}
+                                                                </>
+                                                                :
+                                                                ''
+                                                        }
+                                                    </>)
+                                                    :
+                                                    ''))}
+                                            </div>
+                                        </td>
+                                        {/*<td>
                                         <button
-                                            //className={`btn btn-sm ${c.activo == 1 ? "btn-warning" : "btn-success"}`}
-                                            disabled={ (loggedUser === c.usuario && loggedUserType === "1") ? true : false}
-                                            className={`btn btn-sm`}
-                                            style={{
-                                                backgroundColor: c.activo === 1 ? 'rgb(222, 59, 33)' : '#25D366',
-                                                fontFamily: "Inter, sans-serif",
-                                                color: 'white'
-                                            }}
-                                            onClick={() => props.toggleEstadoCajero(c)}
-                                        >
-                                            {c.activo === 1 ? "Desactivar" : "Activar"}
+                                            className="btn btn-primary btn-sm">
+                                            Editar
                                         </button>
-                                    </td>
+                                    </td> */}
+                                        <td>
+                                            <button
+                                                //className={`btn btn-sm ${c.activo == 1 ? "btn-warning" : "btn-success"}`}
+                                                disabled={(loggedUser === c.usuario && loggedUserType === "1") ? true : false}
+                                                className={`btn btn-sm`}
+                                                style={{
+                                                    backgroundColor: c.activo === 1 ? 'rgb(222, 59, 33)' : '#25D366',
+                                                    fontFamily: "Inter, sans-serif",
+                                                    color: 'white'
+                                                }}
+                                                onClick={() => props.toggleEstadoCajero(c)}
+                                            >
+                                                {c.activo === 1 ? "Desactivar" : "Activar"}
+                                            </button>
+                                        </td>
+                                        {/*
                                       <td>
                                         <button
                                             className="btn btn-danger btn-sm"
@@ -295,15 +345,69 @@ export default function CajerosTab(props) {
                                             Eliminar
                                         </button>
                                     </td>
-                                </tr>
-                            ))}
-                    </tbody>
+                                    */}
+                                    </tr>
+                                ))}
+                            </tbody>
 
-                </table>
+                        </table>
 
+                    </div>
+                </div>
+
+            </div >
+
+
+            {/* Modal Bootstrap */}
+            <div
+                className={`modal fade ${open ? "show d-block" : ""}`}
+                tabIndex="-1"
+                role="dialog"
+                style={{ backgroundColor: open ? "rgba(0,0,0,0.5)" : "transparent" }}
+                onClick={closeModal}
+            >
+                <div
+                    className="modal-dialog modal-dialog-centered"
+                    role="document"
+                    onClick={(e) => e.stopPropagation()} // evita cerrar al click dentro
+                >
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Cambiar contraseña</h5>
+                            <button type="button" className="btn-close" onClick={closeModal}></button>
+                        </div>
+
+                        <div className="modal-body">
+                            <p>Ingrese la nueva contraseña</p>
+
+
+                            {/* PREFIJO*/}
+                            <div className="col-md-6">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="contraseña"
+                                    placeholder="Ingrese contraseña"
+                                    value={newPassword}
+                                    onChange={handleChangePassword}
+                                />
+                            </div>
+
+                        </div>
+
+                        <div className="modal-footer">
+                            <button  onClick={() => closeModal()}
+                            className="btn btn-secondary" >
+                                Cerrar
+                            </button>
+                            <button className="btn btn-primary" onClick={() => saveNewPassword(id)}>
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        </div >
+        </>
     );
 }
