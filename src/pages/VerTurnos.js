@@ -117,8 +117,8 @@ const VerTurnos = () => {
                                                     fontSize: "2.5rem"
                                                 }}
                                             >
-                                                {/*t.box_id === null ? 'sin Box' : t.box_id*/}
-                                                {t.box_numero === null ? 'sin Box' : t.box_numero}
+                                                {t.box_id === null ? 'sin Box' : t.box_id}
+                                                {/*t.box_numero === null ? 'sin Box' : t.box_numero*/}
                                             </div>
                                         </div>
 
