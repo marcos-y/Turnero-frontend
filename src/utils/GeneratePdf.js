@@ -2,10 +2,12 @@ import { jsPDF } from "jspdf";
 
 export const generarPDF = (turno) => {
 
-    /*
     const ahora = new Date();
     const fechaActual = ahora.toLocaleDateString();
     const horaActual = ahora.toLocaleTimeString();
+
+    /*
+    //----- GENERACION SOLO PDF -----
 
     const doc = new jsPDF();
 
@@ -15,7 +17,7 @@ export const generarPDF = (turno) => {
         " ----------------------------------",
         `TURNO N°: ${turno}`,
         "SECTOR: CAJA",
-        "TRÁMITE: PAGOS",
+        "TRÁMITE: ENTREGAS",
         `Fecha: ${fechaActual} `,
         `Hora: ${horaActual}`,
         "----------------------------------",
@@ -26,15 +28,9 @@ export const generarPDF = (turno) => {
         "----------------------------------",
     ], 70, 30);
 
-    /*doc.text("Hola, este es tu PDF generado desde React", 10, 10);*/
-    //doc.output("dataurlnewwindow");*/
-
-    //const contenido = document.getElementById("print-area").innerHTML;
-
-    const ahora = new Date();
-    const fechaActual = ahora.toLocaleDateString();
-    const horaActual = ahora.toLocaleTimeString();
-
+    /*doc.text("Hola, este es tu PDF generado desde React", 10, 10);
+    doc.output("dataurlnewwindow");*/
+    
     const win = window.open("", "_blank");
 
     /*
@@ -55,7 +51,7 @@ export const generarPDF = (turno) => {
         <p>----------------------------------</p>
         <p>TURNO N°: ${turno}</p>
         <p>SECTOR: CAJA</p>
-        <p>TRÁMITE: PAGOS</p>
+        <p>TRÁMITE: ENTREGAS</p>
         <p>Fecha: ${fechaActual}</p>
         <p>Hora: ${horaActual}</p>
         <p>----------------------------------</p>
