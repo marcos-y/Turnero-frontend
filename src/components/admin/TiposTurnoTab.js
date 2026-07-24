@@ -1,5 +1,6 @@
 //import { useEffect, useState } from "react";
 //import axios from "axios";
+import { useState } from "react";
 import ModalEditar from '../ModalEditar';
 
 export default function TiposTurnoTab(props) {
