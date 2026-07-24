@@ -1,6 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GenerarTurno from "./pages/GenerarTurno";
 import VerTurnos from "./pages/VerTurnos";
 import Cajero from "./pages/Cajero";

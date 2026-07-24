@@ -92,7 +92,7 @@ const MetricasPorDia = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.turnosDia.length != 0 ?
+                        {props.turnosDia.length !== 0 ?
 
                             props.turnosDia.map((item) => (
                                 <tr key={item.id}>

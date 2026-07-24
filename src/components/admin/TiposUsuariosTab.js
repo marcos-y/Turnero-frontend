@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function TiposUsuariosTab(props) {
 
@@ -13,7 +13,7 @@ export default function TiposUsuariosTab(props) {
 
     const [focus, setFocus] = useState(false);
     const [focus2, setFocus2] = useState(false);
-    const [focus3, setFocus3] = useState(false);
+    //const [focus3, setFocus3] = useState(false);
 
     return (
         <>

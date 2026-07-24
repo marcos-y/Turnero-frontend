@@ -1,4 +1,4 @@
-import { jsPDF } from "jspdf";
+//import { jsPDF } from "jspdf";
 
 export const generarPDF = (turno) => {
 
@@ -6,7 +6,6 @@ export const generarPDF = (turno) => {
     const fechaActual = ahora.toLocaleDateString();
     const horaActual = ahora.toLocaleTimeString();
 
-    /*
     //----- GENERACION SOLO PDF -----
 
     const doc = new jsPDF();
@@ -28,10 +27,10 @@ export const generarPDF = (turno) => {
         "----------------------------------",
     ], 70, 30);
 
-    /*doc.text("Hola, este es tu PDF generado desde React", 10, 10);
-    doc.output("dataurlnewwindow");*/
+    /*doc.text("Hola, este es tu PDF generado desde React", 10, 10);*/
+    doc.output("dataurlnewwindow");
     
-    const win = window.open("", "_blank");
+   // const win = window.open("", "_blank");
 
     /*
     win.document.write(`
@@ -44,6 +43,7 @@ export const generarPDF = (turno) => {
     </html>
     `);*/
 
+    /*
     win.document.write(`
     <html>
       <body onload="window.print(); window.close();">
@@ -62,6 +62,6 @@ export const generarPDF = (turno) => {
       </body>
     </html>`);
 
-    win.document.close();
+    win.document.close();*/
 };
 

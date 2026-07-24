@@ -3,10 +3,9 @@ import LinkCustom from "./Link";
 
 const Navbar = (props) => {
 
-
-  {/*CERRAR SESION*/ }
   const handleLinkClick = () => {
 
+    //cerrar sesion
     //Borrar el estado en BOX a INACTIVO
     //if (boxSeleccionado !== '') {
     //    axios.delete(`http://localhost:5000/api/boxes/${boxSeleccionado}`)
