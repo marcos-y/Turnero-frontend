@@ -36,9 +36,11 @@ const VerTurnos = () => {
             fetchTurnosPosterior();
         }, 7000); // cada 7 segundos
 
-        return () => clearInterval(interval1)
-        return () => clearInterval(interval2)
-    }, []);
+        return () => {
+            clearInterval(interval1);
+            clearInterval(interval2);
+        };
+    }, [fetchTurnos, fetchTurnosPosterior]);
 
 
     useEffect(() => {
@@ -66,7 +68,7 @@ const VerTurnos = () => {
 
             const audio = new Audio("/audio/sound.mp3");
             audio.play().catch(() => { });
-    
+
         };
 
     }, [turnos, turnosPosterior]);
