@@ -61,7 +61,7 @@ export default function CajerosTab(props) {
         }
     };
 
-    const [activo, setActivo] = useState(true);
+    //const [activo, setActivo] = useState(true);
     //const cambiarEstado = () => {
     //    setActivo(!activo);
     //};
@@ -94,6 +94,7 @@ export default function CajerosTab(props) {
         setOpen(true);
     } 
 
+    /*
     const modalOverlay = {
         display: open ? "flex" : "none",
         position: "fixed",
@@ -105,6 +106,7 @@ export default function CajerosTab(props) {
         justifyContent: "center",
         alignItems: "center",
     };
+    
 
     const modalContent = {
         backgroundColor: "white",
@@ -112,7 +114,7 @@ export default function CajerosTab(props) {
         borderRadius: "8px",
         width: "300px",
         position: "relative",
-    };
+    };*/
 
     const [newPassword, setNewPassword] = useState("");
 

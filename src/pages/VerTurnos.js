@@ -43,10 +43,10 @@ const VerTurnos = () => {
 
     useEffect(() => {
 
-        const huboCambioA = turnos.some(a => {
-            const old = prevA.current.find(p => p.id === a.id);
-            return old && old.estado !== a.estado;
-        });
+        //const huboCambioA = turnos.some(a => {
+        //    const old = prevA.current.find(p => p.id === a.id);
+        //    return old && old.estado !== a.estado;
+        //});
 
         const huboCambioB = turnosPosterior.some(b => {
             const old = prevB.current.find(p => p.id === b.id);
