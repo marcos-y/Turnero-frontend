@@ -6,8 +6,8 @@ import Badge from "../Badge";
 
 export default function CajerosTab(props) {
 
-    //const URL = "localhost:5000";
-    const URL = "192.168.8.193:5000";
+    const URL = "localhost:5000";
+    //const URL = "192.168.8.193:5000";
 
     const idsTurnos = props.tiposTurnos.map(turno => ({
         id: turno.id,
@@ -62,14 +62,17 @@ export default function CajerosTab(props) {
     };
 
     const [activo, setActivo] = useState(true);
-    const cambiarEstado = () => {
-        setActivo(!activo);
-    };
+    //const cambiarEstado = () => {
+    //    setActivo(!activo);
+    //};
 
-    const [loggedUserType, setLoggedUserType] = useState(localStorage.getItem("id_tipo_usuario"));
-    const [loggedUser, setLoggedUser] = useState(localStorage.getItem("usuario"));
+    //const [loggedUserType, setLoggedUserType] = useState(localStorage.getItem("id_tipo_usuario"));
+    const [loggedUserType] = useState(localStorage.getItem("id_tipo_usuario"));
+    //const [loggedUser, setLoggedUser] = useState(localStorage.getItem("usuario"));
+    const [loggedUser] = useState(localStorage.getItem("usuario"));
 
-    const [userType, setUserType] = useState("");
+    //const [userType, setUserType] = useState("");
+
     const handleUserTypeChange = async (id, value) => {
 
         await axios.put(`http://${URL}/api/cajeros/${id}/tipo`, {

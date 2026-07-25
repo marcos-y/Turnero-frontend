@@ -7,12 +7,12 @@ import Navbar from "../components/Navbar";
 import ModalFactura from "../components/ModalFactura";
 import ModalDerivar from "../components/ModalDerivar";
 import Badge from 'react-bootstrap/Badge';
-import TiposTurnoTab from "../components/admin/TiposTurnoTab";
+//import TiposTurnoTab from "../components/admin/TiposTurnoTab";
 
 const Cajero = () => {
 
-  //const URL = "localhost:5000";
-  const URL = "192.168.8.193:5000";
+  const URL = "localhost:5000";
+  //const URL = "192.168.8.193:5000";
 
 
   //----------------- DATOS CAJERO ACTUAL --------------------------------
@@ -22,7 +22,7 @@ const Cajero = () => {
 
 
   //----------------- LISTADO TIPOS TURNOS (TODOS)---------------------------
-  const { tiposTurnos, loadingTiposTurnos, error, fetchTiposTurnos } = useTiposTurnos();
+  const { tiposTurnos, /*loadingTiposTurnos, error,*/ fetchTiposTurnos } = useTiposTurnos();
 
 
   //cambiar indices por IDS
@@ -150,7 +150,7 @@ const Cajero = () => {
       setActual({ ...siguiente, cajero: usuario });
 
       /*¨1- asigno BOX y CAJERO al ultimo turno en FRONTEND por ID */
-      const assignBox = await axios.put(`http://${URL}/api/turnos/${siguiente.id}/asignar-box`, {
+      assignBox = await axios.put(`http://${URL}/api/turnos/${siguiente.id}/asignar-box`, {
         box_id: box_id,
         cajero_id: cajero_id
       });
@@ -261,6 +261,7 @@ const Cajero = () => {
       setLoading(true);
 
       const facturas = await obtenerFacturas(factura);
+      console.log(facturas);
 
       setFacturaData(facturas.data.data);
       setLoading(false);
@@ -334,7 +335,7 @@ const Cajero = () => {
     //}
 
     /*¨3- asigno ESTADO (en Atencion) por ID*/
-    const finishTurn = await axios.put(`http://${URL}/api/turnos/${actual.id}/finalizar`);
+    await axios.put(`http://${URL}/api/turnos/${actual.id}/finalizar`);
 
   };
 

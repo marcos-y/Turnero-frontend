@@ -95,8 +95,9 @@ export default function BoxesTab(props) {
                                 <th>Descripción</th>
                                 <th>Estado</th>
                                 <th>Usuario actual</th>
-                                <th>Cambiar Estado</th>
-                                <th>Eliminar Box</th>
+                                {/*<th>Editar</th>*/}
+                                <th>Activar/Desactivar</th>
+                                {/*<th>Eliminar Box</th>*/}
                             </tr>
                         </thead>
 
@@ -111,6 +112,12 @@ export default function BoxesTab(props) {
                                     <td>
                                         {props.cajeros.find((c) => Number(c.id) === b.cajero_actual)?.usuario}
                                     </td>
+                                    {/*<td>
+                                        <button
+                                            className="btn btn-primary btn-sm">
+                                            Editar
+                                        </button>
+                                    </td>*/}
                                     <td>
                                         <button
                                             className={`btn btn-sm`}
@@ -124,6 +131,7 @@ export default function BoxesTab(props) {
                                             {b.activo === 1 ? "Desactivar" : "Activar"}
                                         </button>
                                     </td>
+                                    {/*
                                     <td>
                                         <button
                                             className="btn btn-danger btn-sm"
@@ -132,6 +140,7 @@ export default function BoxesTab(props) {
                                             Eliminar
                                         </button>
                                     </td>
+                                    */}
                                 </tr>
                             ))}
                         </tbody>

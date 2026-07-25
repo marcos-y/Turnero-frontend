@@ -64,7 +64,8 @@ export default function ModalDerivar(props) {
 
                                         {/* Checkbox si no es NULL EL BOX*/}
                                         {props.boxes.map((b) => (
-                                            ((props.boxSeleccionado == b.box_id) && (b.activo) === 1 && (props.usuario.replace(/"/g, "") !== b.usuario)) ?
+                                            //((props.boxSeleccionado == b.box_id) && (b.activo) === 1 && (props.usuario.replace(/"/g, "") !== b.usuario)) ?
+                                            ((props.boxSeleccionado === b.box_id) && (b.activo) === 1 && (props.usuario.replace(/"/g, "") !== b.usuario)) ?
                                                 (<>
                                                     <label className="form-label" style={{ marginTop: '5px' }}>Elija un tipo de turno</label>
                                                     <div>

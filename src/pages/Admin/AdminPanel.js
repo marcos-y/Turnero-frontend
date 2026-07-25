@@ -3,18 +3,18 @@ import { useTiposTurnos } from "../../hooks/useTiposTurnos";
 import { useTiposUsuarios } from "../../hooks/useTiposUsuarios";
 import { useBoxes } from "../../hooks/useBoxes";
 import { useCajeros } from "../../hooks/useCajeros";
-import { getTipos } from "../../api/tiposTurno.api";
-import { Link } from "react-router-dom";
+//import { getTipos } from "../../api/tiposTurno.api";
+//import { Link } from "react-router-dom";
 import axios from "axios";
-import HomeTab from "../../components/admin/HomeTab";
+//import HomeTab from "../../components/admin/HomeTab";
 import CajerosTab from "../../components/admin/CajerosTab";
 import BoxesTab from "../../components/admin/BoxesTab";
 import TiposTurnoTab from "../../components/admin/TiposTurnoTab";
 import ReportesTab from "../../components/admin/ReportesTab";
-import FacturasTab from "../../components/admin/FacturasTab";
+//import FacturasTab from "../../components/admin/FacturasTab";
 import Navbar from "../../components/Navbar";
 import Button from "../../components/Button";
-import TiposUsuariosTab from "../../components/admin/TiposUsuariosTab";
+//import TiposUsuariosTab from "../../components/admin/TiposUsuariosTab";
 
 export default function AdminPanel() {
 
@@ -30,7 +30,7 @@ export default function AdminPanel() {
     const [selected5, setSelected5] = useState(1);
 
     /*Hover Selected*/
-    const styleSelected0 = {
+    /*const styleSelected0 = {
         fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
         color: "white",
@@ -39,7 +39,7 @@ export default function AdminPanel() {
         paddingLeft: '8px',
         paddingRight: '8px',
         paddingTop: '8px'
-    };
+    };*/
 
     const styleSelected = {
         fontFamily: "Inter, sans-serif",
@@ -90,6 +90,7 @@ export default function AdminPanel() {
         paddingTop: '8px'
     };
 
+    /*
     const styleSelected5 = {
         fontFamily: "Inter, sans-serif",
         backgroundColor: 'rgb(222, 59, 33)',
@@ -113,8 +114,9 @@ export default function AdminPanel() {
         paddingRight: '10px',
         paddingTop: '8px'
     };
+    */
 
-
+    /*
     const style0 = {
         fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
@@ -126,7 +128,7 @@ export default function AdminPanel() {
         paddingLeft: '8px',
         paddingRight: '10px',
         paddingTop: '8px'
-    };
+    };*/
 
     const style = {
         fontFamily: "Inter, sans-serif",
@@ -181,6 +183,7 @@ export default function AdminPanel() {
         paddingTop: '8px'
     };
 
+    /*
     const style5 = {
         fontFamily: "Inter, sans-serif",
         borderColor: 'rgb(222, 59, 33)',
@@ -205,7 +208,7 @@ export default function AdminPanel() {
         paddingLeft: '10px',
         paddingRight: '10px',
         paddingTop: '8px'
-    };
+    };*/
 
     const handleClick = (props) => {
 
@@ -283,7 +286,7 @@ export default function AdminPanel() {
     };
 
     /******** TIPOS TURNOS **********/
-    const { tiposTurnos, loading, error, fetchTiposTurnos } = useTiposTurnos();
+    const { tiposTurnos, /*loading, error*/ fetchTiposTurnos } = useTiposTurnos();
 
     const createTipo = async (form, setForm) => {
 
@@ -326,6 +329,7 @@ export default function AdminPanel() {
     /******** TIPOS USUARIOS **********/
     const { tiposUsuarios, fetchTiposUsuarios } = useTiposUsuarios();
 
+    /*
     const createTipoUsuario = async (form, setForm) => {
 
         if (!form.nombre || !form.descripcion) {
@@ -354,11 +358,11 @@ export default function AdminPanel() {
         await axios.delete(`http://${URL}/api/tipos-usuarios/${id}`);
 
         fetchTiposUsuarios();
-    };
+    };*/
 
 
     /*********** BOXES **********/
-    const { boxes, loadingBoxes, errorBoxes, fetchBoxes } = useBoxes();
+    const { boxes, /*loadingBoxes, errorBoxes,*/ fetchBoxes } = useBoxes();
 
     const createBox = async (form, setForm) => {
 
@@ -389,7 +393,7 @@ export default function AdminPanel() {
     };
 
     /*********** CAJEROS **********/
-    const { cajeros, loadingCajeros, errorCajeros, fetchCajeros } = useCajeros();
+    const { cajeros, /*loadingCajeros, errorCajeros,*/ fetchCajeros } = useCajeros();
 
     const createCajero = async (form, setForm) => {
 

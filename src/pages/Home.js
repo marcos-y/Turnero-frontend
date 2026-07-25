@@ -7,22 +7,24 @@ import LinkCustom from "../components/Link";
 
 export default function Home() {
 
-    //const URL = "localhost:5000";
-    const URL = "192.168.8.193:5000";
+    const URL = "localhost:5000";
+    //const URL = "192.168.8.193:5000";
 
     //spinner
     const [loading, setLoading] = useState(false);
 
     /*********** CAJEROS **********/
-    const { cajeros, errorCajeros, fetchCajeros } = useCajeros();
+    const { /*cajeros, errorCajeros,*/ fetchCajeros } = useCajeros();
 
     /*********** BOXES **********/
-    const { boxes, loadingBoxes, errorBoxes, fetchBoxes } = useBoxes();
+    const { boxes, /*loadingBoxes, errorBoxes,*/ fetchBoxes } = useBoxes();
 
-    const [cajeroAct, setCajeroAct] = useState(localStorage.getItem("id"));
-    const [cajeroSeleccionado, setCajeroSeleccionado] = useState("");
+    //const [cajeroAct, setCajeroAct] = useState(localStorage.getItem("id"));
+    const [cajeroAct] = useState(localStorage.getItem("id"));
+    //const [cajeroSeleccionado, setCajeroSeleccionado] = useState("");
     const [boxSeleccionado, setBoxSeleccionado] = useState("");
-    const [userRol, setUserRol] = useState(localStorage.getItem("id_tipo_usuario"));
+    const [userRol] = useState(localStorage.getItem("id_tipo_usuario"));
+    //const [userRol, setUserRol] = useState(localStorage.getItem("id_tipo_usuario"));
 
     useEffect(() => {
         fetchCajeros();
@@ -206,7 +208,8 @@ export default function Home() {
                                                 <option value="">Seleccionar box</option>
                                         }
                                         {boxes.map((b) => (
-                                            b.id == localStorage.getItem('box_actual') ?
+                                            //b.id == localStorage.getItem('box_actual') ?
+                                             b.id === localStorage.getItem('box_actual') ?
                                                 null
                                                 :
                                                 <option

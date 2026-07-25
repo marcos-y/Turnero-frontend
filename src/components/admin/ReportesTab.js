@@ -11,6 +11,7 @@ export default function ReportesTab() {
     const {turnos} = useTurnos();
     const {turnosDia } = useTurnosDia();
     
+    /*
     function segundosAHumano(segundos) {
 
         const minutos = Math.floor(segundos / 60);
@@ -18,6 +19,7 @@ export default function ReportesTab() {
 
         return `${minutos}m ${seg}s`;
     };
+    */
 
     return (
         <>
