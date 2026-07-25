@@ -150,7 +150,7 @@ const Cajero = () => {
       setActual({ ...siguiente, cajero: usuario });
 
       /*¨1- asigno BOX y CAJERO al ultimo turno en FRONTEND por ID */
-      assignBox = await axios.put(`http://${URL}/api/turnos/${siguiente.id}/asignar-box`, {
+      await axios.put(`http://${URL}/api/turnos/${siguiente.id}/asignar-box`, {
         box_id: box_id,
         cajero_id: cajero_id
       });
