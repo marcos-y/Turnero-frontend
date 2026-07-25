@@ -27,7 +27,7 @@ export default function CajerosTab(props) {
 
     useEffect(() => {
         fetchCajeros();
-    }, [refreshPage]);
+    }, [refreshPage, fetchCajeros]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });

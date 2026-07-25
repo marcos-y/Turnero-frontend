@@ -35,7 +35,7 @@ export default function Home() {
         }, 5000); // cada 5 segundos
 
         return () => clearInterval(interval);
-    }, []);
+    }, [fetchCajeros, fetchBoxes]);
 
 
     const handleSeleccion = async (value) => {
