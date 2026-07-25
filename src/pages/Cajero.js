@@ -122,7 +122,7 @@ const Cajero = () => {
     return () => clearInterval(interval);
 
   //}, [cajeroData]);
-  }, [cajeroData, cajero_id, fetchTiposTurnos()]);
+  }, [cajeroData, cajero_id, fetchTiposTurnos]);
 
 
 
