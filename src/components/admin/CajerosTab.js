@@ -23,8 +23,10 @@ export default function CajerosTab(props) {
         password: "".match
     });
 
+    let fetchCajeros = props.fetchCajeros();
+
     useEffect(() => {
-        props.fetchCajeros();
+        fetchCajeros();
     }, [refreshPage]);
 
     const handleChange = (e) => {
