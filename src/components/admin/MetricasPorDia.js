@@ -1,21 +1,12 @@
 const MetricasPorDia = (props) => {
 
-    {/*
-    if (loadingMetricasPorDia) {
-        return <p>Cargando métricas...</p>;
-    }
-    if (error) {
-        return <p>Error cargando métricas</p>;
-    }
-    */}
-
     function segundosAHumano(segundos) {
 
         const minutos = Math.floor(segundos / 60);
         const seg = segundos % 60;
 
         return `${minutos}m ${seg}s`;
-    };
+    }
 
     return (
         <div className="card">
